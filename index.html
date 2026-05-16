@@ -1,0 +1,1947 @@
+<!DOCTYPE html>
+<html lang="ko">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>World Mingi Tourism</title>
+<link rel="preconnect" href="https://fonts.googleapis.com">
+<link href="https://fonts.googleapis.com/css2?family=Playfair+Display:wght@400;700;900&family=Noto+Sans+KR:wght@300;400;500;700&family=Noto+Sans+JP:wght@300;400;700&family=Noto+Sans+SC:wght@300;400;700&display=swap" rel="stylesheet">
+<style>
+:root {
+  --gold: #C9A84C;
+  --gold-light: #E8C97A;
+  --deep: #0A0E1A;
+  --deep2: #111827;
+  --deep3: #1a2235;
+  --surface: #1e2d45;
+  --surface2: #243352;
+  --text: #F0EDE6;
+  --text-muted: #8A99B5;
+  --accent: #4FC3F7;
+  --accent2: #81ECEC;
+  --red: #FF6B6B;
+  --radius: 16px;
+  --transition: all 0.35s cubic-bezier(0.4,0,0.2,1);
+}
+* { margin:0; padding:0; box-sizing:border-box; }
+html { scroll-behavior: smooth; }
+body {
+  font-family: 'Noto Sans KR', 'Playfair Display', sans-serif;
+  background: var(--deep);
+  color: var(--text);
+  overflow-x: hidden;
+  min-height: 100vh;
+}
+
+/* SCROLLBAR */
+::-webkit-scrollbar { width: 6px; }
+::-webkit-scrollbar-track { background: var(--deep2); }
+::-webkit-scrollbar-thumb { background: var(--gold); border-radius: 3px; }
+
+/* ── HEADER ── */
+header {
+  position: fixed; top: 0; left: 0; right: 0; z-index: 1000;
+  background: linear-gradient(180deg, rgba(10,14,26,0.97) 0%, rgba(10,14,26,0.85) 100%);
+  backdrop-filter: blur(20px);
+  border-bottom: 1px solid rgba(201,168,76,0.2);
+  padding: 0 2rem;
+  height: 70px;
+  display: flex; align-items: center; justify-content: space-between;
+}
+.logo {
+  display: flex; align-items: center; gap: 12px;
+  font-family: 'Playfair Display', serif;
+  font-size: 1.4rem; font-weight: 900;
+  letter-spacing: 0.05em;
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--gold) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  text-decoration: none;
+  cursor: pointer;
+}
+.logo-icon { font-size: 1.8rem; filter: drop-shadow(0 0 8px rgba(201,168,76,0.5)); }
+.header-right { display: flex; align-items: center; gap: 1rem; }
+
+/* Lang switcher */
+.lang-switcher { display: flex; gap: 4px; }
+.lang-btn {
+  background: transparent;
+  border: 1px solid rgba(201,168,76,0.3);
+  color: var(--text-muted);
+  padding: 4px 10px; border-radius: 20px;
+  font-size: 0.75rem; cursor: pointer;
+  transition: var(--transition);
+  font-family: inherit;
+}
+.lang-btn.active, .lang-btn:hover {
+  background: var(--gold); color: var(--deep);
+  border-color: var(--gold); font-weight: 700;
+}
+
+/* Search */
+.search-wrap {
+  position: relative; display: flex; align-items: center;
+}
+.search-input {
+  background: rgba(255,255,255,0.07);
+  border: 1px solid rgba(201,168,76,0.25);
+  color: var(--text); border-radius: 30px;
+  padding: 8px 16px 8px 40px;
+  font-size: 0.85rem; width: 200px;
+  transition: var(--transition); font-family: inherit;
+  outline: none;
+}
+.search-input:focus { width: 260px; border-color: var(--gold); background: rgba(201,168,76,0.08); }
+.search-icon { position: absolute; left: 12px; color: var(--gold); font-size: 1rem; pointer-events: none; }
+
+/* ── HERO ── */
+.hero {
+  height: 100vh; position: relative; overflow: hidden;
+  display: flex; align-items: center; justify-content: center;
+  flex-direction: column; text-align: center;
+}
+.hero-bg {
+  position: absolute; inset: 0; z-index: 0;
+  background:
+    radial-gradient(ellipse at 20% 50%, rgba(79,195,247,0.12) 0%, transparent 50%),
+    radial-gradient(ellipse at 80% 20%, rgba(201,168,76,0.1) 0%, transparent 50%),
+    radial-gradient(ellipse at 60% 80%, rgba(129,236,236,0.08) 0%, transparent 50%),
+    linear-gradient(135deg, #0A0E1A 0%, #111827 50%, #0d1520 100%);
+}
+.hero-grid {
+  position: absolute; inset: 0; z-index: 0;
+  background-image:
+    linear-gradient(rgba(201,168,76,0.04) 1px, transparent 1px),
+    linear-gradient(90deg, rgba(201,168,76,0.04) 1px, transparent 1px);
+  background-size: 60px 60px;
+  animation: gridMove 20s linear infinite;
+}
+@keyframes gridMove { 0%{transform:translateY(0)} 100%{transform:translateY(60px)} }
+.hero-particles { position: absolute; inset: 0; z-index: 0; overflow: hidden; }
+.particle {
+  position: absolute; width: 3px; height: 3px;
+  background: var(--gold); border-radius: 50%;
+  animation: float linear infinite;
+  opacity: 0;
+}
+@keyframes float {
+  0% { transform: translateY(100vh) translateX(0); opacity: 0; }
+  10% { opacity: 0.6; }
+  90% { opacity: 0.3; }
+  100% { transform: translateY(-100px) translateX(50px); opacity: 0; }
+}
+.hero-content { position: relative; z-index: 1; }
+.hero-badge {
+  display: inline-flex; align-items: center; gap: 8px;
+  background: rgba(201,168,76,0.1); border: 1px solid rgba(201,168,76,0.3);
+  border-radius: 30px; padding: 6px 16px; margin-bottom: 2rem;
+  font-size: 0.8rem; color: var(--gold); letter-spacing: 0.2em;
+  animation: fadeInDown 0.8s ease forwards;
+}
+@keyframes fadeInDown { from{opacity:0;transform:translateY(-20px)} to{opacity:1;transform:translateY(0)} }
+.hero h1 {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(2.5rem, 6vw, 5.5rem);
+  font-weight: 900; line-height: 1.1;
+  margin-bottom: 1.5rem;
+  animation: fadeInUp 0.8s 0.2s ease both;
+}
+@keyframes fadeInUp { from{opacity:0;transform:translateY(30px)} to{opacity:1;transform:translateY(0)} }
+.hero h1 span {
+  background: linear-gradient(135deg, var(--gold) 0%, var(--gold-light) 50%, var(--accent) 100%);
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.hero p {
+  font-size: 1.15rem; color: var(--text-muted);
+  max-width: 560px; margin: 0 auto 2.5rem;
+  line-height: 1.8; animation: fadeInUp 0.8s 0.4s ease both;
+}
+.hero-cta {
+  display: flex; gap: 1rem; justify-content: center; flex-wrap: wrap;
+  animation: fadeInUp 0.8s 0.6s ease both;
+}
+.btn-primary {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: var(--deep); border: none; border-radius: 50px;
+  padding: 14px 32px; font-size: 0.95rem; font-weight: 700;
+  cursor: pointer; transition: var(--transition); font-family: inherit;
+  box-shadow: 0 4px 20px rgba(201,168,76,0.35);
+}
+.btn-primary:hover { transform: translateY(-2px); box-shadow: 0 8px 30px rgba(201,168,76,0.5); }
+.btn-secondary {
+  background: transparent; color: var(--text);
+  border: 1px solid rgba(255,255,255,0.2); border-radius: 50px;
+  padding: 14px 32px; font-size: 0.95rem; cursor: pointer;
+  transition: var(--transition); font-family: inherit;
+}
+.btn-secondary:hover { border-color: var(--gold); color: var(--gold); }
+.hero-scroll {
+  position: absolute; bottom: 40px; left: 50%; transform: translateX(-50%);
+  display: flex; flex-direction: column; align-items: center; gap: 8px;
+  color: var(--text-muted); font-size: 0.75rem; letter-spacing: 0.2em;
+  animation: fadeInUp 1s 1s ease both;
+  cursor: pointer;
+}
+.scroll-line {
+  width: 1px; height: 50px;
+  background: linear-gradient(to bottom, transparent, var(--gold));
+  animation: scrollPulse 2s infinite;
+}
+@keyframes scrollPulse { 0%,100%{opacity:0.3} 50%{opacity:1} }
+
+/* ── STATS ── */
+.stats-bar {
+  background: linear-gradient(90deg, var(--deep2), var(--deep3), var(--deep2));
+  border-top: 1px solid rgba(201,168,76,0.15);
+  border-bottom: 1px solid rgba(201,168,76,0.15);
+  padding: 2rem 0;
+}
+.stats-inner {
+  max-width: 1200px; margin: 0 auto; padding: 0 2rem;
+  display: flex; justify-content: space-around; flex-wrap: wrap; gap: 2rem;
+}
+.stat { text-align: center; }
+.stat-num {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.5rem; font-weight: 900;
+  background: linear-gradient(135deg, var(--gold), var(--accent));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+}
+.stat-label { color: var(--text-muted); font-size: 0.8rem; margin-top: 4px; letter-spacing: 0.1em; }
+
+/* ── MAIN SECTION ── */
+.main-section {
+  max-width: 1400px; margin: 0 auto; padding: 5rem 2rem;
+}
+.section-header {
+  text-align: center; margin-bottom: 3rem;
+}
+.section-tag {
+  display: inline-block;
+  color: var(--gold); font-size: 0.75rem; letter-spacing: 0.3em;
+  text-transform: uppercase; margin-bottom: 1rem;
+}
+.section-title {
+  font-family: 'Playfair Display', serif;
+  font-size: clamp(1.8rem, 4vw, 3rem); font-weight: 700;
+  margin-bottom: 1rem;
+}
+.section-sub { color: var(--text-muted); max-width: 500px; margin: 0 auto; line-height: 1.8; }
+
+/* ── VIEW TABS ── */
+.view-tabs {
+  display: flex; justify-content: center; gap: 8px; margin-bottom: 2.5rem;
+  flex-wrap: wrap;
+}
+.view-tab {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(201,168,76,0.2);
+  color: var(--text-muted); border-radius: 12px;
+  padding: 10px 22px; font-size: 0.85rem; cursor: pointer;
+  transition: var(--transition); display: flex; align-items: center; gap: 8px;
+  font-family: inherit;
+}
+.view-tab.active, .view-tab:hover {
+  background: rgba(201,168,76,0.12);
+  border-color: var(--gold); color: var(--gold);
+}
+.view-tab span { font-size: 1.1rem; }
+
+/* ── CONTINENT FILTER ── */
+.continent-filter {
+  display: flex; gap: 8px; flex-wrap: wrap; justify-content: center; margin-bottom: 2rem;
+}
+.cont-btn {
+  background: transparent; border: 1px solid rgba(255,255,255,0.1);
+  color: var(--text-muted); border-radius: 30px;
+  padding: 6px 16px; font-size: 0.8rem; cursor: pointer;
+  transition: var(--transition); font-family: inherit;
+}
+.cont-btn.active, .cont-btn:hover {
+  background: var(--surface2); border-color: var(--accent2); color: var(--accent2);
+}
+
+/* ── MAP VIEW ── */
+#view-map { display: block; }
+#view-list { display: none; }
+#view-flag { display: none; }
+
+.map-container {
+  background: var(--deep2); border-radius: 24px;
+  border: 1px solid rgba(201,168,76,0.15);
+  overflow: hidden; position: relative;
+  box-shadow: 0 20px 60px rgba(0,0,0,0.4);
+}
+.map-hint {
+  text-align: center; padding: 1rem; color: var(--text-muted);
+  font-size: 0.8rem; letter-spacing: 0.1em; border-bottom: 1px solid rgba(201,168,76,0.1);
+}
+.world-map-svg-wrapper {
+  position: relative; width: 100%; padding-bottom: 52%;
+  background: linear-gradient(135deg, #0d1a2e 0%, #091524 100%);
+}
+.world-map-svg-wrapper svg {
+  position: absolute; inset: 0; width: 100%; height: 100%;
+}
+.country-dot {
+  position: absolute;
+  width: 14px; height: 14px;
+  background: var(--gold);
+  border: 2px solid var(--gold-light);
+  border-radius: 50%;
+  cursor: pointer;
+  transform: translate(-50%, -50%);
+  transition: var(--transition);
+  z-index: 10;
+  box-shadow: 0 0 8px rgba(201,168,76,0.5);
+  animation: pulse 2s infinite;
+}
+.country-dot:hover {
+  width: 20px; height: 20px;
+  box-shadow: 0 0 20px rgba(201,168,76,0.8);
+  animation: none;
+  z-index: 20;
+}
+@keyframes pulse {
+  0%,100% { box-shadow: 0 0 0 0 rgba(201,168,76,0.4); }
+  50% { box-shadow: 0 0 0 6px rgba(201,168,76,0); }
+}
+.country-dot-label {
+  position: absolute; bottom: 20px; left: 50%; transform: translateX(-50%);
+  background: rgba(10,14,26,0.9); border: 1px solid var(--gold);
+  border-radius: 8px; padding: 3px 8px; font-size: 0.65rem; white-space: nowrap;
+  color: var(--gold); pointer-events: none; opacity: 0; transition: var(--transition);
+}
+.country-dot:hover .country-dot-label { opacity: 1; }
+
+/* ── LIST VIEW ── */
+.country-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(320px, 1fr));
+  gap: 1.5rem;
+}
+.country-card {
+  background: var(--surface); border-radius: var(--radius);
+  border: 1px solid rgba(201,168,76,0.1);
+  overflow: hidden; cursor: pointer;
+  transition: var(--transition);
+  position: relative;
+}
+.country-card:hover {
+  transform: translateY(-6px);
+  border-color: var(--gold);
+  box-shadow: 0 20px 50px rgba(0,0,0,0.4), 0 0 30px rgba(201,168,76,0.1);
+}
+.card-img {
+  width: 100%; height: 200px; object-fit: cover;
+  transition: var(--transition);
+}
+.country-card:hover .card-img { transform: scale(1.05); }
+.card-img-wrap { overflow: hidden; position: relative; }
+.card-badge {
+  position: absolute; top: 12px; right: 12px;
+  background: rgba(10,14,26,0.8); border: 1px solid rgba(201,168,76,0.4);
+  border-radius: 20px; padding: 4px 10px; font-size: 0.7rem; color: var(--gold);
+}
+.card-body { padding: 1.25rem; }
+.card-header { display: flex; align-items: center; gap: 10px; margin-bottom: 0.75rem; }
+.card-flag { font-size: 1.8rem; }
+.card-name { font-family: 'Playfair Display', serif; font-size: 1.2rem; font-weight: 700; }
+.card-continent { font-size: 0.75rem; color: var(--accent2); letter-spacing: 0.1em; }
+.card-desc { font-size: 0.82rem; color: var(--text-muted); line-height: 1.6; margin-bottom: 1rem; }
+.card-tags { display: flex; gap: 6px; flex-wrap: wrap; }
+.tag {
+  background: rgba(79,195,247,0.1); border: 1px solid rgba(79,195,247,0.2);
+  color: var(--accent); border-radius: 20px; padding: 3px 10px; font-size: 0.7rem;
+}
+.card-arrow {
+  position: absolute; bottom: 16px; right: 16px;
+  width: 36px; height: 36px; background: rgba(201,168,76,0.1);
+  border: 1px solid rgba(201,168,76,0.3); border-radius: 50%;
+  display: flex; align-items: center; justify-content: center;
+  color: var(--gold); transition: var(--transition); font-size: 0.9rem;
+}
+.country-card:hover .card-arrow { background: var(--gold); color: var(--deep); }
+
+/* ── FLAG VIEW ── */
+.flag-grid {
+  display: grid;
+  grid-template-columns: repeat(auto-fill, minmax(150px, 1fr));
+  gap: 1rem;
+}
+.flag-card {
+  background: var(--surface); border-radius: var(--radius);
+  border: 1px solid rgba(201,168,76,0.1);
+  padding: 1.25rem 1rem; text-align: center;
+  cursor: pointer; transition: var(--transition);
+}
+.flag-card:hover {
+  transform: translateY(-4px);
+  border-color: var(--gold);
+  box-shadow: 0 10px 30px rgba(0,0,0,0.3);
+}
+.flag-emoji { font-size: 3rem; margin-bottom: 0.5rem; display: block; }
+.flag-name { font-size: 0.82rem; font-weight: 600; margin-bottom: 2px; }
+.flag-cont { font-size: 0.7rem; color: var(--text-muted); }
+
+/* ── MODAL ── */
+.modal-overlay {
+  position: fixed; inset: 0; z-index: 2000;
+  background: rgba(0,0,0,0.85); backdrop-filter: blur(8px);
+  display: none; align-items: center; justify-content: center;
+  padding: 1rem;
+  opacity: 0; transition: opacity 0.3s ease;
+}
+.modal-overlay.show { display: flex; }
+.modal-overlay.visible { opacity: 1; }
+.modal {
+  background: var(--deep2); border-radius: 24px;
+  border: 1px solid rgba(201,168,76,0.2);
+  max-width: 900px; width: 100%; max-height: 90vh;
+  overflow-y: auto;
+  transform: scale(0.95); transition: transform 0.3s ease;
+  box-shadow: 0 30px 80px rgba(0,0,0,0.6), 0 0 40px rgba(201,168,76,0.08);
+}
+.modal-overlay.visible .modal { transform: scale(1); }
+
+.modal-hero {
+  position: relative; height: 320px; overflow: hidden; border-radius: 24px 24px 0 0;
+}
+.modal-hero-img {
+  width: 100%; height: 100%; object-fit: cover;
+}
+.modal-hero-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(10,14,26,0.95) 100%);
+}
+.modal-hero-info {
+  position: absolute; bottom: 0; left: 0; right: 0; padding: 2rem;
+  display: flex; align-items: flex-end; justify-content: space-between;
+}
+.modal-flag { font-size: 4rem; line-height: 1; }
+.modal-title-block {}
+.modal-country-name {
+  font-family: 'Playfair Display', serif;
+  font-size: 2.2rem; font-weight: 900; line-height: 1;
+}
+.modal-continent { color: var(--accent2); font-size: 0.85rem; letter-spacing: 0.15em; margin-top: 4px; }
+.modal-close {
+  position: absolute; top: 16px; right: 16px;
+  width: 40px; height: 40px; background: rgba(0,0,0,0.6);
+  border: 1px solid rgba(255,255,255,0.2); border-radius: 50%;
+  color: white; font-size: 1.1rem; cursor: pointer;
+  display: flex; align-items: center; justify-content: center;
+  transition: var(--transition); z-index: 5;
+}
+.modal-close:hover { background: var(--red); border-color: var(--red); }
+
+.modal-body { padding: 2rem; }
+
+/* Photo Gallery */
+.photo-gallery {
+  display: grid; grid-template-columns: repeat(4, 1fr); gap: 8px; margin-bottom: 2rem;
+}
+.gallery-img {
+  width: 100%; aspect-ratio: 1; object-fit: cover; border-radius: 8px;
+  cursor: pointer; transition: var(--transition);
+}
+.gallery-img:hover { transform: scale(1.03); opacity: 0.9; }
+
+/* Info Tabs */
+.info-tabs { display: flex; gap: 6px; margin-bottom: 1.5rem; flex-wrap: wrap; }
+.info-tab {
+  background: rgba(255,255,255,0.05);
+  border: 1px solid rgba(201,168,76,0.15); color: var(--text-muted);
+  border-radius: 10px; padding: 8px 16px; font-size: 0.82rem;
+  cursor: pointer; transition: var(--transition); font-family: inherit;
+}
+.info-tab.active { background: rgba(201,168,76,0.15); border-color: var(--gold); color: var(--gold); }
+
+.info-panel { display: none; }
+.info-panel.active { display: block; }
+
+/* Info Grid */
+.info-grid { display: grid; grid-template-columns: 1fr 1fr; gap: 1rem; margin-bottom: 1.5rem; }
+.info-block {
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(255,255,255,0.08);
+  border-radius: 12px; padding: 1.25rem;
+}
+.info-block-icon { font-size: 1.4rem; margin-bottom: 0.5rem; }
+.info-block-title { font-size: 0.7rem; color: var(--gold); letter-spacing: 0.15em; text-transform: uppercase; margin-bottom: 6px; }
+.info-block-value { font-size: 0.9rem; line-height: 1.6; }
+
+/* Highlights */
+.highlights-list { list-style: none; }
+.highlights-list li {
+  display: flex; align-items: flex-start; gap: 10px;
+  padding: 10px 0; border-bottom: 1px solid rgba(255,255,255,0.06);
+  font-size: 0.88rem; line-height: 1.6;
+}
+.highlights-list li:last-child { border-bottom: none; }
+.hl-icon { color: var(--gold); font-size: 1rem; flex-shrink: 0; margin-top: 2px; }
+
+/* Recommend tags */
+.recommend-tags { display: flex; gap: 8px; flex-wrap: wrap; }
+.rtag {
+  background: rgba(129,236,236,0.1); border: 1px solid rgba(129,236,236,0.25);
+  color: var(--accent2); border-radius: 20px; padding: 6px 14px; font-size: 0.8rem;
+}
+
+/* External links */
+.ext-links { display: flex; flex-direction: column; gap: 10px; }
+.ext-link {
+  display: flex; align-items: center; justify-content: space-between;
+  background: rgba(255,255,255,0.04); border: 1px solid rgba(201,168,76,0.15);
+  border-radius: 12px; padding: 1rem 1.25rem;
+  text-decoration: none; color: var(--text);
+  transition: var(--transition);
+}
+.ext-link:hover { border-color: var(--gold); background: rgba(201,168,76,0.08); }
+.ext-link-info { display: flex; align-items: center; gap: 12px; }
+.ext-link-icon { font-size: 1.4rem; }
+.ext-link-name { font-weight: 600; font-size: 0.9rem; }
+.ext-link-desc { font-size: 0.75rem; color: var(--text-muted); margin-top: 2px; }
+.ext-link-arrow { color: var(--gold); font-size: 1.1rem; }
+
+/* AI Section */
+.ai-section {
+  background: rgba(201,168,76,0.05); border: 1px solid rgba(201,168,76,0.2);
+  border-radius: 16px; padding: 1.5rem; margin-top: 1rem;
+}
+.ai-header { display: flex; align-items: center; gap: 10px; margin-bottom: 1rem; }
+.ai-badge {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: var(--deep); border-radius: 20px; padding: 4px 12px;
+  font-size: 0.72rem; font-weight: 700; letter-spacing: 0.1em;
+}
+.ai-content { font-size: 0.88rem; line-height: 1.8; color: var(--text-muted); min-height: 60px; }
+.ai-loading { display: flex; gap: 6px; align-items: center; }
+.ai-dot {
+  width: 8px; height: 8px; background: var(--gold); border-radius: 50%;
+  animation: aiDot 1.4s infinite;
+}
+.ai-dot:nth-child(2) { animation-delay: 0.2s; }
+.ai-dot:nth-child(3) { animation-delay: 0.4s; }
+@keyframes aiDot { 0%,60%,100%{transform:scale(1);opacity:0.4} 30%{transform:scale(1.4);opacity:1} }
+.ai-gen-btn {
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  color: var(--deep); border: none; border-radius: 10px;
+  padding: 10px 20px; font-size: 0.85rem; font-weight: 700;
+  cursor: pointer; font-family: inherit; margin-top: 1rem;
+  transition: var(--transition);
+}
+.ai-gen-btn:hover { transform: scale(1.03); }
+.ai-gen-btn:disabled { opacity: 0.5; cursor: not-allowed; transform: none; }
+
+/* ── FEATURED ── */
+.featured-section {
+  background: linear-gradient(135deg, var(--deep2), var(--deep3));
+  border-top: 1px solid rgba(201,168,76,0.1);
+  border-bottom: 1px solid rgba(201,168,76,0.1);
+  padding: 5rem 0; overflow: hidden;
+}
+.featured-inner { max-width: 1400px; margin: 0 auto; padding: 0 2rem; }
+.featured-scroll {
+  display: flex; gap: 1.5rem; overflow-x: auto; padding-bottom: 1rem;
+  scrollbar-width: thin; scrollbar-color: var(--gold) transparent;
+  scroll-snap-type: x mandatory;
+}
+.featured-card {
+  flex: 0 0 280px; scroll-snap-align: start;
+  position: relative; border-radius: 20px; overflow: hidden;
+  cursor: pointer; height: 380px; transition: var(--transition);
+}
+.featured-card:hover { transform: scale(1.03); }
+.featured-card img { width: 100%; height: 100%; object-fit: cover; }
+.featured-card-overlay {
+  position: absolute; inset: 0;
+  background: linear-gradient(to bottom, transparent 40%, rgba(0,0,0,0.85) 100%);
+}
+.featured-card-info {
+  position: absolute; bottom: 0; left: 0; right: 0; padding: 1.5rem;
+}
+.featured-flag { font-size: 2rem; margin-bottom: 4px; }
+.featured-name { font-family: 'Playfair Display', serif; font-size: 1.3rem; font-weight: 700; }
+.featured-tagline { font-size: 0.78rem; color: rgba(255,255,255,0.7); margin-top: 2px; }
+
+/* ── FOOTER ── */
+footer {
+  background: var(--deep); border-top: 1px solid rgba(201,168,76,0.15);
+  padding: 3rem 2rem; text-align: center;
+}
+.footer-logo {
+  font-family: 'Playfair Display', serif; font-size: 1.6rem; font-weight: 900;
+  background: linear-gradient(135deg, var(--gold), var(--gold-light));
+  -webkit-background-clip: text; -webkit-text-fill-color: transparent;
+  margin-bottom: 1rem;
+}
+.footer-text { color: var(--text-muted); font-size: 0.82rem; line-height: 1.8; margin-bottom: 1.5rem; }
+.footer-links { display: flex; gap: 1.5rem; justify-content: center; flex-wrap: wrap; margin-bottom: 2rem; }
+.footer-link { color: var(--text-muted); text-decoration: none; font-size: 0.82rem; transition: var(--transition); }
+.footer-link:hover { color: var(--gold); }
+.footer-copy { color: rgba(138,153,181,0.5); font-size: 0.75rem; }
+
+/* ── TOAST ── */
+.toast {
+  position: fixed; bottom: 30px; left: 50%; transform: translateX(-50%);
+  background: var(--gold); color: var(--deep); border-radius: 30px;
+  padding: 10px 24px; font-size: 0.85rem; font-weight: 700;
+  z-index: 9999; opacity: 0; transition: opacity 0.3s ease;
+  pointer-events: none;
+}
+.toast.show { opacity: 1; }
+
+/* RESPONSIVE */
+@media (max-width: 768px) {
+  .info-grid { grid-template-columns: 1fr; }
+  .photo-gallery { grid-template-columns: repeat(2, 1fr); }
+  .modal-hero { height: 220px; }
+  .modal-country-name { font-size: 1.5rem; }
+  .modal-flag { font-size: 2.5rem; }
+  .lang-switcher { display: none; }
+  .search-input { width: 140px; }
+  .hero h1 { font-size: 2rem; }
+}
+
+/* Shimmer */
+.shimmer {
+  background: linear-gradient(90deg, rgba(255,255,255,0.04) 25%, rgba(255,255,255,0.1) 50%, rgba(255,255,255,0.04) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.5s infinite;
+}
+@keyframes shimmer { 0%{background-position:200% 0} 100%{background-position:-200% 0} }
+
+.hidden { display: none !important; }
+</style>
+</head>
+<body>
+
+<!-- HEADER -->
+<header>
+  <div class="logo" onclick="scrollToTop()">
+    <span class="logo-icon">✈</span>
+    <span>World Mingi Tourism</span>
+  </div>
+  <div class="header-right">
+    <div class="search-wrap">
+      <span class="search-icon">🔍</span>
+      <input class="search-input" type="text" placeholder="나라 검색..." id="searchInput" oninput="filterCountries(this.value)">
+    </div>
+    <div class="lang-switcher">
+      <button class="lang-btn active" onclick="setLang('ko')">KO</button>
+      <button class="lang-btn" onclick="setLang('en')">EN</button>
+      <button class="lang-btn" onclick="setLang('ja')">JA</button>
+      <button class="lang-btn" onclick="setLang('zh')">ZH</button>
+    </div>
+  </div>
+</header>
+
+<!-- HERO -->
+<section class="hero">
+  <div class="hero-bg"></div>
+  <div class="hero-grid"></div>
+  <div class="hero-particles" id="particles"></div>
+  <div class="hero-content">
+    <div class="hero-badge">✦ <span data-i18n="hero_badge">세계를 여행하다</span> ✦</div>
+    <h1><span data-i18n="hero_title">당신의 다음 여행지를</span><br><span data-i18n="hero_title2">지금 발견하세요</span></h1>
+    <p data-i18n="hero_sub">30개국의 아름다운 여행지 정보를 한눈에. 지도, 리스트, 국기 중 원하는 방식으로 세계를 탐험하세요.</p>
+    <div class="hero-cta">
+      <button class="btn-primary" onclick="scrollToExplore()" data-i18n="hero_btn1">지금 탐험하기</button>
+      <button class="btn-secondary" onclick="showView('flag')" data-i18n="hero_btn2">국기로 보기</button>
+    </div>
+  </div>
+  <div class="hero-scroll" onclick="scrollToExplore()">
+    <span data-i18n="scroll_down">스크롤하여 탐색</span>
+    <div class="scroll-line"></div>
+  </div>
+</section>
+
+<!-- STATS -->
+<div class="stats-bar">
+  <div class="stats-inner">
+    <div class="stat"><div class="stat-num">30</div><div class="stat-label" data-i18n="stat1">여행 국가</div></div>
+    <div class="stat"><div class="stat-num">6</div><div class="stat-label" data-i18n="stat2">대륙</div></div>
+    <div class="stat"><div class="stat-num">4</div><div class="stat-label" data-i18n="stat3">지원 언어</div></div>
+    <div class="stat"><div class="stat-num">∞</div><div class="stat-label" data-i18n="stat4">새로운 경험</div></div>
+  </div>
+</div>
+
+<!-- FEATURED -->
+<section class="featured-section">
+  <div class="featured-inner">
+    <div class="section-header" style="text-align:left;margin-bottom:2rem;">
+      <div class="section-tag" data-i18n="featured_tag">✦ EDITOR'S PICKS</div>
+      <h2 class="section-title" data-i18n="featured_title">지금 뜨는 여행지</h2>
+    </div>
+    <div class="featured-scroll" id="featuredScroll"></div>
+  </div>
+</section>
+
+<!-- MAIN EXPLORE -->
+<section class="main-section" id="exploreSection">
+  <div class="section-header">
+    <div class="section-tag" data-i18n="explore_tag">✦ EXPLORE THE WORLD</div>
+    <h2 class="section-title" data-i18n="explore_title">세계 30개국을 탐험하세요</h2>
+    <p class="section-sub" data-i18n="explore_sub">지도, 리스트, 국기 중 원하는 방식으로 나라를 선택하세요</p>
+  </div>
+
+  <div class="view-tabs">
+    <button class="view-tab active" onclick="showView('map')" id="tab-map">
+      <span>🗺️</span> <span data-i18n="tab_map">세계 지도</span>
+    </button>
+    <button class="view-tab" onclick="showView('list')" id="tab-list">
+      <span>🃏</span> <span data-i18n="tab_list">카드 리스트</span>
+    </button>
+    <button class="view-tab" onclick="showView('flag')" id="tab-flag">
+      <span>🏳️</span> <span data-i18n="tab_flag">국기 선택</span>
+    </button>
+  </div>
+
+  <div class="continent-filter" id="continentFilter">
+    <button class="cont-btn active" onclick="filterContinent('all')" data-i18n="cont_all">전체</button>
+    <button class="cont-btn" onclick="filterContinent('아시아')">🌏 아시아</button>
+    <button class="cont-btn" onclick="filterContinent('유럽')">🌍 유럽</button>
+    <button class="cont-btn" onclick="filterContinent('아메리카')">🌎 아메리카</button>
+    <button class="cont-btn" onclick="filterContinent('오세아니아')">🏝️ 오세아니아</button>
+    <button class="cont-btn" onclick="filterContinent('아프리카')">🌍 아프리카</button>
+    <button class="cont-btn" onclick="filterContinent('중동')">🕌 중동</button>
+  </div>
+
+  <!-- MAP VIEW -->
+  <div id="view-map">
+    <div class="map-container">
+      <div class="map-hint" data-i18n="map_hint">📍 지도의 점을 클릭하여 나라 정보를 확인하세요</div>
+      <div class="world-map-svg-wrapper" id="mapWrapper">
+        <!-- SVG World Map -->
+        <svg viewBox="0 0 1000 500" xmlns="http://www.w3.org/2000/svg" style="background:#091524;">
+          <!-- Ocean -->
+          <rect width="1000" height="500" fill="#091524"/>
+          <!-- Grid lines -->
+          <g stroke="rgba(201,168,76,0.08)" stroke-width="0.5">
+            <line x1="0" y1="250" x2="1000" y2="250"/>
+            <line x1="500" y1="0" x2="500" y2="500"/>
+            <line x1="250" y1="0" x2="250" y2="500"/>
+            <line x1="750" y1="0" x2="750" y2="500"/>
+            <line x1="0" y1="125" x2="1000" y2="125"/>
+            <line x1="0" y1="375" x2="1000" y2="375"/>
+          </g>
+          <!-- Continents (simplified shapes) -->
+          <!-- North America -->
+          <path d="M80,60 L160,55 L200,80 L220,120 L240,160 L230,200 L200,220 L180,240 L160,260 L140,240 L120,200 L100,180 L80,150 L60,120 Z" fill="rgba(30,45,69,0.8)" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
+          <!-- South America -->
+          <path d="M190,260 L240,255 L260,290 L270,340 L260,390 L230,420 L200,430 L180,410 L170,370 L175,320 L180,280 Z" fill="rgba(30,45,69,0.8)" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
+          <!-- Europe -->
+          <path d="M430,60 L510,55 L540,75 L550,100 L530,120 L500,115 L480,130 L460,125 L440,110 L420,90 Z" fill="rgba(30,45,69,0.8)" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
+          <!-- Africa -->
+          <path d="M440,140 L530,135 L560,160 L570,210 L560,270 L540,320 L510,360 L480,375 L450,360 L430,320 L425,270 L430,210 L435,170 Z" fill="rgba(30,45,69,0.8)" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
+          <!-- Asia -->
+          <path d="M550,50 L750,45 L820,70 L850,100 L840,140 L800,160 L760,170 L720,165 L680,180 L640,175 L600,160 L570,140 L555,110 Z" fill="rgba(30,45,69,0.8)" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
+          <!-- Southeast Asia -->
+          <path d="M700,175 L780,175 L800,200 L790,230 L760,240 L730,230 L710,210 Z" fill="rgba(30,45,69,0.8)" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
+          <!-- Australia -->
+          <path d="M750,280 L860,275 L880,310 L870,360 L840,385 L790,390 L755,370 L740,330 Z" fill="rgba(30,45,69,0.8)" stroke="rgba(201,168,76,0.15)" stroke-width="1"/>
+          <!-- Equator line -->
+          <line x1="0" y1="250" x2="1000" y2="250" stroke="rgba(79,195,247,0.15)" stroke-width="1" stroke-dasharray="5,5"/>
+        </svg>
+        <!-- Country dots will be injected here -->
+        <div id="countryDots"></div>
+      </div>
+    </div>
+  </div>
+
+  <!-- LIST VIEW -->
+  <div id="view-list">
+    <div class="country-grid" id="countryGrid"></div>
+  </div>
+
+  <!-- FLAG VIEW -->
+  <div id="view-flag">
+    <div class="flag-grid" id="flagGrid"></div>
+  </div>
+</section>
+
+<!-- FOOTER -->
+<footer>
+  <div class="footer-logo">✈ World Mingi Tourism</div>
+  <p class="footer-text" data-i18n="footer_text">세계 30개국의 아름다운 여행 정보를 한곳에서.<br>당신의 완벽한 여행을 응원합니다.</p>
+  <div class="footer-links">
+    <a class="footer-link" href="#" data-i18n="footer_about">소개</a>
+    <a class="footer-link" href="#" data-i18n="footer_privacy">개인정보</a>
+    <a class="footer-link" href="#" data-i18n="footer_contact">문의</a>
+    <a class="footer-link" href="#" data-i18n="footer_contribute">국가 추가 요청</a>
+  </div>
+  <p class="footer-copy">© 2025 World Mingi Tourism. All rights reserved.</p>
+</footer>
+
+<!-- MODAL -->
+<div class="modal-overlay" id="modalOverlay" onclick="closeModalOutside(event)">
+  <div class="modal" id="modal">
+    <div class="modal-hero">
+      <img class="modal-hero-img" id="modalHeroImg" src="" alt="">
+      <div class="modal-hero-overlay"></div>
+      <div class="modal-hero-info">
+        <div>
+          <div class="modal-flag" id="modalFlag"></div>
+          <div class="modal-title-block">
+            <div class="modal-country-name" id="modalName"></div>
+            <div class="modal-continent" id="modalContinent"></div>
+          </div>
+        </div>
+      </div>
+      <button class="modal-close" onclick="closeModal()">✕</button>
+    </div>
+    <div class="modal-body">
+      <!-- Photo Gallery -->
+      <div class="photo-gallery" id="photoGallery"></div>
+
+      <!-- Info Tabs -->
+      <div class="info-tabs">
+        <button class="info-tab active" onclick="switchTab('overview')" data-i18n="tab_overview">개요</button>
+        <button class="info-tab" onclick="switchTab('attractions')" data-i18n="tab_attractions">관광지</button>
+        <button class="info-tab" onclick="switchTab('travel')" data-i18n="tab_travel">교통·숙박</button>
+        <button class="info-tab" onclick="switchTab('recommend')" data-i18n="tab_recommend">추천 대상</button>
+        <button class="info-tab" onclick="switchTab('links')" data-i18n="tab_links">더 알아보기</button>
+      </div>
+
+      <div class="info-panel active" id="panel-overview">
+        <div class="info-grid" id="overviewGrid"></div>
+        <div class="ai-section">
+          <div class="ai-header">
+            <span class="ai-badge">✦ AI 여행 가이드</span>
+            <span style="font-size:0.8rem;color:var(--text-muted)" data-i18n="ai_desc">Claude AI가 이 나라에 대한 심층 정보를 제공합니다</span>
+          </div>
+          <div class="ai-content" id="aiContent" data-i18n="ai_placeholder">버튼을 눌러 AI 가이드를 불러오세요</div>
+          <button class="ai-gen-btn" id="aiBtn" onclick="generateAIGuide()" data-i18n="ai_btn">✦ AI 가이드 생성</button>
+        </div>
+      </div>
+
+      <div class="info-panel" id="panel-attractions">
+        <ul class="highlights-list" id="attractionsList"></ul>
+      </div>
+
+      <div class="info-panel" id="panel-travel">
+        <div class="info-grid" id="travelGrid"></div>
+      </div>
+
+      <div class="info-panel" id="panel-recommend">
+        <p style="font-size:0.88rem;color:var(--text-muted);margin-bottom:1rem;line-height:1.8" id="recommendDesc"></p>
+        <div class="recommend-tags" id="recommendTags"></div>
+      </div>
+
+      <div class="info-panel" id="panel-links">
+        <div class="ext-links" id="extLinks"></div>
+      </div>
+    </div>
+  </div>
+</div>
+
+<!-- TOAST -->
+<div class="toast" id="toast"></div>
+
+<script>
+// ══════════════════════════════════════
+// TRANSLATIONS
+// ══════════════════════════════════════
+const i18n = {
+  ko: {
+    hero_badge: '세계를 여행하다', hero_title: '당신의 다음 여행지를', hero_title2: '지금 발견하세요',
+    hero_sub: '30개국의 아름다운 여행지 정보를 한눈에. 지도, 리스트, 국기 중 원하는 방식으로 세계를 탐험하세요.',
+    hero_btn1: '지금 탐험하기', hero_btn2: '국기로 보기', scroll_down: '스크롤하여 탐색',
+    stat1: '여행 국가', stat2: '대륙', stat3: '지원 언어', stat4: '새로운 경험',
+    featured_tag: '✦ EDITOR\'S PICKS', featured_title: '지금 뜨는 여행지',
+    explore_tag: '✦ EXPLORE THE WORLD', explore_title: '세계 30개국을 탐험하세요',
+    explore_sub: '지도, 리스트, 국기 중 원하는 방식으로 나라를 선택하세요',
+    tab_map: '세계 지도', tab_list: '카드 리스트', tab_flag: '국기 선택',
+    cont_all: '전체', map_hint: '📍 지도의 점을 클릭하여 나라 정보를 확인하세요',
+    tab_overview: '개요', tab_attractions: '관광지', tab_travel: '교통·숙박',
+    tab_recommend: '추천 대상', tab_links: '더 알아보기',
+    ai_desc: 'Claude AI가 이 나라에 대한 심층 정보를 제공합니다',
+    ai_placeholder: '버튼을 눌러 AI 가이드를 불러오세요', ai_btn: '✦ AI 가이드 생성',
+    footer_text: '세계 30개국의 아름다운 여행 정보를 한곳에서.\n당신의 완벽한 여행을 응원합니다.',
+    footer_about: '소개', footer_privacy: '개인정보', footer_contact: '문의', footer_contribute: '국가 추가 요청',
+    search_placeholder: '나라 검색...'
+  },
+  en: {
+    hero_badge: 'Travel the World', hero_title: 'Discover Your Next', hero_title2: 'Destination',
+    hero_sub: 'Explore 30 countries in one place. Browse by map, list, or flags.',
+    hero_btn1: 'Explore Now', hero_btn2: 'Browse by Flag', scroll_down: 'Scroll to Explore',
+    stat1: 'Countries', stat2: 'Continents', stat3: 'Languages', stat4: 'Experiences',
+    featured_tag: '✦ EDITOR\'S PICKS', featured_title: 'Trending Destinations',
+    explore_tag: '✦ EXPLORE THE WORLD', explore_title: 'Explore 30 Countries',
+    explore_sub: 'Choose from map, card list, or flags to find your destination',
+    tab_map: 'World Map', tab_list: 'Card List', tab_flag: 'By Flag',
+    cont_all: 'All', map_hint: '📍 Click dots on the map to view country info',
+    tab_overview: 'Overview', tab_attractions: 'Attractions', tab_travel: 'Transport & Stay',
+    tab_recommend: 'Who\'s it for', tab_links: 'Learn More',
+    ai_desc: 'Claude AI provides in-depth travel insights',
+    ai_placeholder: 'Click the button to generate AI travel guide', ai_btn: '✦ Generate AI Guide',
+    footer_text: 'Beautiful travel info for 30 countries in one place.\nWishing you the perfect journey.',
+    footer_about: 'About', footer_privacy: 'Privacy', footer_contact: 'Contact', footer_contribute: 'Request Country',
+    search_placeholder: 'Search country...'
+  },
+  ja: {
+    hero_badge: '世界を旅する', hero_title: '次の旅先を', hero_title2: '今すぐ発見',
+    hero_sub: '30カ国の美しい旅行情報を一目で。地図、リスト、国旗からお好みの方法で探索してください。',
+    hero_btn1: '今すぐ探索', hero_btn2: '国旗で見る', scroll_down: 'スクロールして探索',
+    stat1: '旅行国', stat2: '大陸', stat3: '対応言語', stat4: '新しい体験',
+    featured_tag: '✦ 編集部おすすめ', featured_title: '今人気の旅先',
+    explore_tag: '✦ 世界を探索', explore_title: '30カ国を探索しよう',
+    explore_sub: '地図、リスト、国旗からお好みの方法で国を選んでください',
+    tab_map: '世界地図', tab_list: 'カードリスト', tab_flag: '国旗選択',
+    cont_all: '全て', map_hint: '📍 地図の点をクリックして国情報を確認',
+    tab_overview: '概要', tab_attractions: '観光地', tab_travel: '交通・宿泊',
+    tab_recommend: 'おすすめ対象', tab_links: 'もっと詳しく',
+    ai_desc: 'Claude AIがこの国の詳細情報を提供します',
+    ai_placeholder: 'ボタンを押してAIガイドを生成', ai_btn: '✦ AIガイド生成',
+    footer_text: '30カ国の美しい旅行情報を一か所で。\n完璧な旅をお祈りしています。',
+    footer_about: '紹介', footer_privacy: 'プライバシー', footer_contact: 'お問い合わせ', footer_contribute: '国を追加',
+    search_placeholder: '国を検索...'
+  },
+  zh: {
+    hero_badge: '环游世界', hero_title: '发现您的下一个', hero_title2: '旅行目的地',
+    hero_sub: '一站式浏览30个国家的旅游信息。通过地图、列表或国旗探索世界。',
+    hero_btn1: '立即探索', hero_btn2: '按国旗浏览', scroll_down: '滚动探索',
+    stat1: '旅游国家', stat2: '大洲', stat3: '支持语言', stat4: '新体验',
+    featured_tag: '✦ 编辑精选', featured_title: '热门目的地',
+    explore_tag: '✦ 探索世界', explore_title: '探索世界30国',
+    explore_sub: '选择地图、卡片列表或国旗来找到您的目的地',
+    tab_map: '世界地图', tab_list: '卡片列表', tab_flag: '国旗选择',
+    cont_all: '全部', map_hint: '📍 点击地图上的圆点查看国家信息',
+    tab_overview: '概览', tab_attractions: '景点', tab_travel: '交通·住宿',
+    tab_recommend: '推荐人群', tab_links: '了解更多',
+    ai_desc: 'Claude AI提供该国深度旅游信息',
+    ai_placeholder: '点击按钮生成AI旅游指南', ai_btn: '✦ 生成AI指南',
+    footer_text: '一站式提供30国美丽旅游信息。\n祝您旅途愉快！',
+    footer_about: '关于', footer_privacy: '隐私', footer_contact: '联系', footer_contribute: '申请添加国家',
+    search_placeholder: '搜索国家...'
+  }
+};
+
+let currentLang = 'ko';
+
+function setLang(lang) {
+  currentLang = lang;
+  document.querySelectorAll('.lang-btn').forEach(b => b.classList.remove('active'));
+  document.querySelector(`.lang-btn[onclick="setLang('${lang}')"]`).classList.add('active');
+  document.querySelectorAll('[data-i18n]').forEach(el => {
+    const key = el.dataset.i18n;
+    if (i18n[lang][key]) el.textContent = i18n[lang][key];
+  });
+  const si = document.getElementById('searchInput');
+  if (si) si.placeholder = i18n[lang].search_placeholder || '나라 검색...';
+  renderAll();
+}
+
+// ══════════════════════════════════════
+// COUNTRY DATA (30 COUNTRIES)
+// ══════════════════════════════════════
+const countries = [
+  {
+    id: 'korea', flag: '🇰🇷', continent: '아시아',
+    name: { ko: '대한민국', en: 'South Korea', ja: '韓国', zh: '韩国' },
+    tagline: { ko: 'K-컬처의 심장', en: 'Heart of K-Culture', ja: 'K-カルチャーの心', zh: 'K文化之心' },
+    desc: { ko: 'K-POP, 한식, 역사가 공존하는 역동적인 나라', en: 'Where K-pop, cuisine, and history beautifully coexist', ja: 'K-POP、韓食、歴史が共存する活気あふれる国', zh: 'K-POP、美食与历史完美共存的活力国度' },
+    img: 'https://images.unsplash.com/photo-1538485399081-7191377e8241?w=800&q=80',
+    photos: [
+      'https://images.unsplash.com/photo-1601921004897-b7d582836990?w=400&q=80',
+      'https://images.unsplash.com/photo-1538485399081-7191377e8241?w=400&q=80',
+      'https://images.unsplash.com/photo-1534274988757-a28bf1a57c17?w=400&q=80',
+      'https://images.unsplash.com/photo-1549396018-7b0f0bfb2ee8?w=400&q=80'
+    ],
+    tags: ['K-POP', '한식', '역사', '쇼핑'],
+    mapPos: { x: 79, y: 33 },
+    overview: {
+      ko: { capital: '서울', currency: '원 (KRW)', climate: '사계절 뚜렷', bestTime: '봄(3-5월), 가을(9-11월)', language: '한국어', timezone: 'GMT+9' },
+      en: { capital: 'Seoul', currency: 'Won (KRW)', climate: 'Four distinct seasons', bestTime: 'Spring (Mar-May), Fall (Sep-Nov)', language: 'Korean', timezone: 'GMT+9' }
+    },
+    attractions: ['경복궁 — 조선시대 정궁', '제주도 — 유네스코 자연유산', '명동 — 쇼핑·먹거리 천국', '부산 해운대 — 아름다운 해변', 'DMZ — 역사적 비무장지대', '한강 공원 — 도심 속 자연'],
+    transport: { fromKorea: '국내 이동', flight: '국내선 1시간', accommodation: '게스트하우스~5성 호텔', localTransport: '지하철, 버스, KTX' },
+    recommend: {
+      desc: { ko: 'K-컬처 팬, 미식가, 역사 애호가, 쇼핑러 모두에게 완벽한 여행지입니다.', en: 'Perfect for K-culture fans, foodies, history lovers, and shoppers alike.' },
+      tags: ['K-POP 팬', '미식가', '역사 탐방', '쇼핑러', '가족 여행']
+    },
+    links: [
+      { name: '한국관광공사', url: 'https://www.visitkorea.or.kr', desc: '공식 한국 관광 정보', icon: '🏛️' },
+      { name: 'Booking.com', url: 'https://www.booking.com', desc: '호텔·숙소 예약', icon: '🏨' },
+      { name: 'Klook', url: 'https://www.klook.com', desc: '액티비티·투어 예약', icon: '🎫' }
+    ]
+  },
+  {
+    id: 'japan', flag: '🇯🇵', continent: '아시아',
+    name: { ko: '일본', en: 'Japan', ja: '日本', zh: '日本' },
+    tagline: { ko: '전통과 현대의 조화', en: 'Where Tradition Meets Tomorrow', ja: '伝統と現代の融合', zh: '传统与现代的融合' },
+    desc: { ko: '벚꽃, 스시, 사원, 첨단기술이 어우러진 매력적인 나라', en: 'Cherry blossoms, sushi, temples, and cutting-edge technology', ja: '桜、寿司、神社、そして最先端技術の魅力溢れる国', zh: '樱花、寿司、神社与前沿科技的完美融合' },
+    img: 'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=800&q=80',
+    photos: [
+      'https://images.unsplash.com/photo-1528360983277-13d401cdc186?w=400&q=80',
+      'https://images.unsplash.com/photo-1545569341-9eb8b30979d9?w=400&q=80',
+      'https://images.unsplash.com/photo-1492571350019-22de08371fd3?w=400&q=80',
+      'https://images.unsplash.com/photo-1549692520-acc6669e2f0c?w=400&q=80'
+    ],
+    tags: ['벚꽃', '사찰', '온천', '애니메이션'],
+    mapPos: { x: 80, y: 30 },
+    overview: { ko: { capital: '도쿄', currency: '엔 (JPY)', climate: '지역별 다양', bestTime: '봄(3-4월), 가을(10-11월)', language: '일본어', timezone: 'GMT+9' }, en: { capital: 'Tokyo', currency: 'Yen (JPY)', climate: 'Varies by region', bestTime: 'Spring (Mar-Apr), Fall (Oct-Nov)', language: 'Japanese', timezone: 'GMT+9' } },
+    attractions: ['도쿄 스카이트리 — 세계 최고층 탑', '교토 기온 — 전통 게이샤 거리', '후지산 — 일본의 상징', '나라 사슴공원 — 자유로운 사슴들', '오키나와 — 투명한 에메랄드 바다', '삿포로 — 눈 축제의 도시'],
+    transport: { fromKorea: '인천→도쿄 약 2.5시간', flight: '직항 다수 운항', accommodation: '료칸~럭셔리 호텔', localTransport: '신칸센, 지하철, JR패스' },
+    recommend: { desc: { ko: '첫 해외여행, 미식 여행, 문화 탐방, 애니메이션 성지순례에 최적입니다.', en: 'Ideal for first-time travelers, foodies, culture seekers, and anime fans.' }, tags: ['첫 해외여행', '미식가', '문화 탐방', '애니메이션 팬', '커플'] },
+    links: [{ name: 'Japan Tourism Agency', url: 'https://www.jnto.go.jp', desc: '일본 공식 관광청', icon: '⛩️' }, { name: 'HIS 여행', url: 'https://www.his-j.com', desc: '일본 여행 전문 패키지', icon: '✈️' }, { name: 'Booking.com', url: 'https://www.booking.com', desc: '호텔 예약', icon: '🏨' }]
+  },
+  {
+    id: 'france', flag: '🇫🇷', continent: '유럽',
+    name: { ko: '프랑스', en: 'France', ja: 'フランス', zh: '法国' },
+    tagline: { ko: '낭만의 나라', en: 'The Land of Romance', ja: 'ロマンスの国', zh: '浪漫之国' },
+    desc: { ko: '에펠탑, 루브르, 최고의 와인과 음식의 나라', en: 'Eiffel Tower, Louvre, world-class wine and cuisine', ja: 'エッフェル塔、ルーヴル、最高のワインと料理の国', zh: '埃菲尔铁塔、卢浮宫、顶级美酒与美食' },
+    img: 'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=800&q=80',
+    photos: [
+      'https://images.unsplash.com/photo-1502602898657-3e91760cbb34?w=400&q=80',
+      'https://images.unsplash.com/photo-1503917988258-f87a78e3c995?w=400&q=80',
+      'https://images.unsplash.com/photo-1549144511-f099e773c147?w=400&q=80',
+      'https://images.unsplash.com/photo-1431274172761-fca41d930114?w=400&q=80'
+    ],
+    tags: ['에펠탑', '미술관', '와인', '패션'],
+    mapPos: { x: 45, y: 28 },
+    overview: { ko: { capital: '파리', currency: '유로 (EUR)', climate: '온화한 대륙성', bestTime: '봄(4-6월), 가을(9-10월)', language: '프랑스어', timezone: 'GMT+1' }, en: { capital: 'Paris', currency: 'Euro (EUR)', climate: 'Mild continental', bestTime: 'Spring (Apr-Jun), Fall (Sep-Oct)', language: 'French', timezone: 'GMT+1' } },
+    attractions: ['에펠탑 — 세계에서 가장 유명한 철탑', '루브르 박물관 — 모나리자의 집', '베르사유 궁전 — 태양왕의 궁전', '몽마르트 — 예술가들의 언덕', '코트다쥐르 — 지중해 황금 해변', '알자스 지방 — 동화속 마을'],
+    transport: { fromKorea: '인천→파리 약 12시간', flight: '직항 또는 경유', accommodation: '부티크 호텔~럭셔리 팰리스', localTransport: 'TGV, 메트로, 버스' },
+    recommend: { desc: { ko: '커플 여행, 미식·와인 여행, 예술·문화 탐방, 패션 쇼핑객에게 완벽합니다.', en: 'Perfect for couples, wine lovers, art enthusiasts, and fashion seekers.' }, tags: ['커플', '와인 러버', '예술 팬', '패션 피플', '허니문'] },
+    links: [{ name: 'Atout France', url: 'https://www.france.fr', desc: '프랑스 공식 관광청', icon: '🗼' }, { name: 'Airbnb', url: 'https://www.airbnb.com', desc: '파리 아파트 숙박', icon: '🏠' }, { name: 'Viator', url: 'https://www.viator.com', desc: '파리 투어·티켓', icon: '🎭' }]
+  },
+  {
+    id: 'italy', flag: '🇮🇹', continent: '유럽',
+    name: { ko: '이탈리아', en: 'Italy', ja: 'イタリア', zh: '意大利' },
+    tagline: { ko: '역사와 맛의 천국', en: 'Heaven of History & Flavor', ja: '歴史と味の楽園', zh: '历史与美味的天堂' },
+    desc: { ko: '콜로세움, 피자, 파스타, 르네상스 예술의 나라', en: 'Colosseum, pizza, pasta, and Renaissance art', ja: 'コロッセオ、ピザ、パスタ、ルネサンス芸術の国', zh: '罗马斗兽场、披萨、意面与文艺复兴艺术' },
+    img: 'https://images.unsplash.com/photo-1525874684015-58379d421a52?w=800&q=80',
+    photos: [
+      'https://images.unsplash.com/photo-1525874684015-58379d421a52?w=400&q=80',
+      'https://images.unsplash.com/photo-1523906834658-6e24ef2386f9?w=400&q=80',
+      'https://images.unsplash.com/photo-1534445867742-43195f401b6c?w=400&q=80',
+      'https://images.unsplash.com/photo-1516483638261-f4dbaf036963?w=400&q=80'
+    ],
+    tags: ['콜로세움', '피자', '베네치아', '와인'],
+    mapPos: { x: 48, y: 30 },
+    overview: { ko: { capital: '로마', currency: '유로 (EUR)', climate: '지중해성', bestTime: '봄(4-6월), 가을(9-11월)', language: '이탈리아어', timezone: 'GMT+1' }, en: { capital: 'Rome', currency: 'Euro (EUR)', climate: 'Mediterranean', bestTime: 'Spring (Apr-Jun), Fall (Sep-Nov)', language: 'Italian', timezone: 'GMT+1' } },
+    attractions: ['콜로세움 — 2000년 역사의 원형경기장', '바티칸 — 성 베드로 대성당', '베네치아 — 물 위의 도시', '피렌체 두오모 — 르네상스의 심장', '아말피 해안 — 절벽 위 낙원', '친퀘테레 — 알록달록 어촌 마을'],
+    transport: { fromKorea: '인천→로마 약 13시간', flight: '경유 편 다수', accommodation: '아그리투리스모~5성 호텔', localTransport: '트레니탈리아, 버스, 수상버스' },
+    recommend: { desc: { ko: '역사 마니아, 미식가, 허니문 커플, 예술 애호가에게 최고의 선택입니다.', en: 'Best for history buffs, foodies, honeymooners, and art lovers.' }, tags: ['역사 마니아', '미식가', '허니문', '예술가', '사진 작가'] },
+    links: [{ name: 'Italia.it', url: 'https://www.italia.it', desc: '이탈리아 공식 관광청', icon: '🏛️' }, { name: 'Booking.com', url: 'https://www.booking.com', desc: '숙소 예약', icon: '🏨' }, { name: 'GetYourGuide', url: 'https://www.getyourguide.com', desc: '투어·체험 예약', icon: '🎟️' }]
+  },
+  {
+    id: 'usa', flag: '🇺🇸', continent: '아메리카',
+    name: { ko: '미국', en: 'USA', ja: 'アメリカ', zh: '美国' },
+    tagline: { ko: '꿈의 나라', en: 'Land of Dreams', ja: '夢の国', zh: '梦想之地' },
+    desc: { ko: '뉴욕, 엘에이, 그랜드캐니언... 끝없는 다양성의 대국', en: 'New York, LA, Grand Canyon — infinite diversity', ja: 'ニューヨーク、LA、グランドキャニオン…無限の多様性', zh: '纽约、洛杉矶、大峡谷——无尽多样性' },
+    img: 'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=800&q=80',
+    photos: [
+      'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=400&q=80',
+      'https://images.unsplash.com/photo-1534430480872-3498386e7856?w=400&q=80',
+      'https://images.unsplash.com/photo-1500491460312-c32fc2dbc751?w=400&q=80',
+      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80'
+    ],
+    tags: ['뉴욕', '자연', '테마파크', '쇼핑'],
+    mapPos: { x: 20, y: 30 },
+    overview: { ko: { capital: '워싱턴 D.C.', currency: '달러 (USD)', climate: '지역별 상이', bestTime: '봄/가을 전국 추천', language: '영어', timezone: 'GMT-5~-8' }, en: { capital: 'Washington D.C.', currency: 'Dollar (USD)', climate: 'Varies by region', bestTime: 'Spring/Fall nationwide', language: 'English', timezone: 'GMT-5~-8' } },
+    attractions: ['뉴욕 맨해튼 — 자유의 여신상, 센트럴파크', '라스베이거스 — 불야성의 도시', '그랜드캐니언 — 대자연의 경이', '하와이 — 태평양의 파라다이스', '옐로스톤 — 세계 최초 국립공원', '디즈니월드 올랜도 — 꿈의 왕국'],
+    transport: { fromKorea: '인천→뉴욕 약 14시간', flight: '직항 및 경유 다수', accommodation: '모텔~초럭셔리 리조트', localTransport: '렌터카, 국내선 항공, 그레이하운드' },
+    recommend: { desc: { ko: '모험가, 테마파크 마니아, 자연 탐험가, 쇼핑러 모두에게 완벽한 나라입니다.', en: 'Perfect for adventurers, theme park fans, nature explorers, and shoppers.' }, tags: ['모험가', '가족 여행', '자연 탐험', '쇼핑러', '비즈니스'] },
+    links: [{ name: 'VisitUSA', url: 'https://www.visittheusa.com', desc: '미국 공식 관광청', icon: '🗽' }, { name: 'Expedia', url: 'https://www.expedia.com', desc: '항공+호텔 패키지', icon: '✈️' }, { name: 'Airbnb', url: 'https://www.airbnb.com', desc: '현지 숙박', icon: '🏠' }]
+  },
+  {
+    id: 'thailand', flag: '🇹🇭', continent: '아시아',
+    name: { ko: '태국', en: 'Thailand', ja: 'タイ', zh: '泰国' },
+    tagline: { ko: '미소의 나라', en: 'Land of Smiles', ja: '微笑みの国', zh: '微笑之国' },
+    desc: { ko: '황금 사원, 팟타이, 에메랄드 해변의 열대 천국', en: 'Golden temples, Pad Thai, and emerald tropical beaches', ja: '黄金の寺院、パッタイ、エメラルドの熱帯ビーチ', zh: '金色寺庙、炒河粉与翡翠色热带海滩' },
+    img: 'https://images.unsplash.com/photo-1528181304800-259b08848526?w=800&q=80',
+    photos: [
+      'https://images.unsplash.com/photo-1528181304800-259b08848526?w=400&q=80',
+      'https://images.unsplash.com/photo-1506665531195-3566af2b4dfa?w=400&q=80',
+      'https://images.unsplash.com/photo-1539367628448-4bc5c9d171c8?w=400&q=80',
+      'https://images.unsplash.com/photo-1552465011-b4e21bf6e79a?w=400&q=80'
+    ],
+    tags: ['사원', '해변', '마사지', '맛집'],
+    mapPos: { x: 72, y: 42 },
+    overview: { ko: { capital: '방콕', currency: '바트 (THB)', climate: '열대 몬순', bestTime: '11월~3월 (건기)', language: '태국어', timezone: 'GMT+7' }, en: { capital: 'Bangkok', currency: 'Baht (THB)', climate: 'Tropical monsoon', bestTime: 'Nov-Mar (dry season)', language: 'Thai', timezone: 'GMT+7' } },
+    attractions: ['왓 프라깨우 — 에메랄드 불상의 사원', '치앙마이 — 코끼리 트레킹', '크라비 — 절벽과 에메랄드 바다', '코사무이 — 야자수 해변', '아유타야 — 고대 왕국 유적', '카오산로드 — 배낭 여행자의 천국'],
+    transport: { fromKorea: '인천→방콕 약 6시간', flight: '직항 다수', accommodation: '게스트하우스~럭셔리 리조트', localTransport: '툭툭, BTS, 선상 버스' },
+    recommend: { desc: { ko: '저예산 여행자, 해변 휴양, 불교 문화 탐방, 맛집 투어를 원하는 분께 최적입니다.', en: 'Great for budget travelers, beach lovers, Buddhist culture fans, and foodies.' }, tags: ['저예산 여행', '해변 러버', '배낭 여행자', '미식가', '커플'] },
+    links: [{ name: 'Tourism Thailand', url: 'https://www.tourismthailand.org', desc: '태국 공식 관광청', icon: '🏯' }, { name: 'Agoda', url: 'https://www.agoda.com', desc: '아시아 특화 숙박', icon: '🏨' }, { name: 'Klook', url: 'https://www.klook.com', desc: '액티비티 예약', icon: '🎫' }]
+  },
+  {
+    id: 'spain', flag: '🇪🇸', continent: '유럽',
+    name: { ko: '스페인', en: 'Spain', ja: 'スペイン', zh: '西班牙' },
+    tagline: { ko: '열정과 태양의 나라', en: 'Land of Passion & Sun', ja: '情熱と太陽の国', zh: '激情与阳光之国' },
+    desc: { ko: '가우디 건축, 플라멩코, 파에야, 지중해 해변', en: 'Gaudí architecture, flamenco, paella, and Mediterranean beaches', ja: 'ガウディ建築、フラメンコ、パエリア、地中海ビーチ', zh: '高迪建筑、弗拉门科、海鲜饭与地中海海滩' },
+    img: 'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=800&q=80',
+    photos: [
+      'https://images.unsplash.com/photo-1539037116277-4db20889f2d4?w=400&q=80',
+      'https://images.unsplash.com/photo-1566979681-58cfd4e4ad14?w=400&q=80',
+      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80',
+      'https://images.unsplash.com/photo-1547866020-7b5oo4c28e74?w=400&q=80'
+    ],
+    tags: ['가우디', '플라멩코', '타파스', '축구'],
+    mapPos: { x: 42, y: 30 },
+    overview: { ko: { capital: '마드리드', currency: '유로 (EUR)', climate: '지중해성/반건조', bestTime: '봄(4-6월), 가을(9-11월)', language: '스페인어', timezone: 'GMT+1' }, en: { capital: 'Madrid', currency: 'Euro (EUR)', climate: 'Mediterranean/Semi-arid', bestTime: 'Spring (Apr-Jun), Fall (Sep-Nov)', language: 'Spanish', timezone: 'GMT+1' } },
+    attractions: ['사그라다 파밀리아 — 가우디의 미완성 걸작', '알함브라 궁전 — 이슬람 건축의 극치', '바르셀로나 항구 — 지중해의 심장', '세비야 구시가지 — 플라멩코의 고향', '이비자 — 세계 최고의 클럽 파티', '산세바스티안 — 미식의 도시'],
+    transport: { fromKorea: '인천→마드리드 약 13시간', flight: '경유 편 이용', accommodation: '파라도르~부티크 호텔', localTransport: 'AVE 고속열차, 버스, 메트로' },
+    recommend: { desc: { ko: '건축 마니아, 음식 탐험가, 나이트라이프 러버, 해변 휴양객에게 최고입니다.', en: 'Top pick for architecture buffs, food explorers, nightlife lovers, and beach goers.' }, tags: ['건축 마니아', '미식가', '나이트라이프', '해변 러버', '축구 팬'] },
+    links: [{ name: 'Spain Tourism', url: 'https://www.spain.info', desc: '스페인 공식 관광청', icon: '💃' }, { name: 'Booking.com', url: 'https://www.booking.com', desc: '숙소 예약', icon: '🏨' }, { name: 'GetYourGuide', url: 'https://www.getyourguide.com', desc: '투어 예약', icon: '🎟️' }]
+  },
+  {
+    id: 'uk', flag: '🇬🇧', continent: '유럽',
+    name: { ko: '영국', en: 'United Kingdom', ja: 'イギリス', zh: '英国' },
+    tagline: { ko: '왕실과 전통의 나라', en: 'Land of Royals & Tradition', ja: '王室と伝統の国', zh: '皇室与传统之国' },
+    desc: { ko: '빅벤, 버킹엄궁전, 홍차, 셰익스피어의 나라', en: 'Big Ben, Buckingham Palace, tea time, and Shakespeare', ja: 'ビッグベン、バッキンガム宮殿、紅茶、シェイクスピアの国', zh: '大本钟、白金汉宫、红茶与莎士比亚的故乡' },
+    img: 'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=800&q=80',
+    photos: [
+      'https://images.unsplash.com/photo-1513635269975-59663e0ac1ad?w=400&q=80',
+      'https://images.unsplash.com/photo-1526129318478-62ed807ebdf9?w=400&q=80',
+      'https://images.unsplash.com/photo-1555993539-1732b0258235?w=400&q=80',
+      'https://images.unsplash.com/photo-1533929736458-ca588d08c8be?w=400&q=80'
+    ],
+    tags: ['빅벤', '박물관', '축구', '홍차'],
+    mapPos: { x: 44, y: 24 },
+    overview: { ko: { capital: '런던', currency: '파운드 (GBP)', climate: '온화한 해양성', bestTime: '여름(6-9월)', language: '영어', timezone: 'GMT+0' }, en: { capital: 'London', currency: 'Pound (GBP)', climate: 'Mild oceanic', bestTime: 'Summer (Jun-Sep)', language: 'English', timezone: 'GMT+0' } },
+    attractions: ['빅벤 & 웨스트민스터 — 런던의 랜드마크', '대영박물관 — 세계 최대 유물 컬렉션', '스톤헨지 — 신비의 고대 유적', '코츠월즈 — 동화 속 영국 마을', '에딘버러 성 — 스코틀랜드의 심장', '옥스퍼드 — 세계 최고의 대학 도시'],
+    transport: { fromKorea: '인천→런던 약 12시간', flight: '직항 다수', accommodation: 'B&B~5성 호텔', localTransport: '지하철(튜브), 버스, 기차' },
+    recommend: { desc: { ko: '역사·문화 탐방, 어학 연수, 클래식 음악 팬, 왕실 팬에게 완벽합니다.', en: 'Perfect for history lovers, English learners, classical music fans, and royalists.' }, tags: ['역사 탐방', '어학 연수', '문화 여행', '왕실 팬', '가족'] },
+    links: [{ name: 'Visit Britain', url: 'https://www.visitbritain.com', desc: '영국 공식 관광청', icon: '👑' }, { name: 'Booking.com', url: 'https://www.booking.com', desc: '숙소 예약', icon: '🏨' }, { name: 'Viator', url: 'https://www.viator.com', desc: '투어 예약', icon: '🎭' }]
+  },
+  {
+    id: 'australia', flag: '🇦🇺', continent: '오세아니아',
+    name: { ko: '호주', en: 'Australia', ja: 'オーストラリア', zh: '澳大利亚' },
+    tagline: { ko: '야생의 대륙', en: 'The Wild Continent', ja: '野生の大陸', zh: '野性大陆' },
+    desc: { ko: '코알라, 캥거루, 그레이트 배리어 리프, 오페라하우스', en: 'Koalas, kangaroos, Great Barrier Reef, and Opera House', ja: 'コアラ、カンガルー、グレートバリアリーフ、オペラハウス', zh: '考拉、袋鼠、大堡礁与悉尼歌剧院' },
+    img: 'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=800&q=80',
+    photos: [
+      'https://images.unsplash.com/photo-1523482580672-f109ba8cb9be?w=400&q=80',
+      'https://images.unsplash.com/photo-1594736797933-d0401ba2fe65?w=400&q=80',
+      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80',
+      'https://images.unsplash.com/photo-1509316785289-025f5b846b35?w=400&q=80'
+    ],
+    tags: ['해변', '야생동물', '다이빙', '오지'],
+    mapPos: { x: 82, y: 68 },
+    overview: { ko: { capital: '캔버라', currency: '호주달러 (AUD)', climate: '지역별 상이', bestTime: '봄·가을(9-11월, 3-5월)', language: '영어', timezone: 'GMT+8~+11' }, en: { capital: 'Canberra', currency: 'AUD', climate: 'Varies widely', bestTime: 'Spring/Fall (Sep-Nov, Mar-May)', language: 'English', timezone: 'GMT+8~+11' } },
+    attractions: ['시드니 오페라하우스 — 세계적 건축물', '그레이트 배리어 리프 — 세계 최대 산호초', '울룰루 — 신성한 붉은 바위', '골드코스트 — 황금빛 해변 & 테마파크', '블루마운틴 — 유칼립투스 안개 협곡', '멜버른 — 커피와 문화의 도시'],
+    transport: { fromKorea: '인천→시드니 약 10시간', flight: '직항 다수', accommodation: '백패커스~럭셔리 리조트', localTransport: '렌터카, 국내선, 기차' },
+    recommend: { desc: { ko: '자연 탐험가, 다이빙 마니아, 워홀 준비생, 가족 여행객에게 이상적입니다.', en: 'Ideal for nature explorers, divers, working holiday makers, and families.' }, tags: ['자연 탐험', '다이빙', '워킹홀리데이', '가족 여행', '캠핑'] },
+    links: [{ name: 'Tourism Australia', url: 'https://www.australia.com', desc: '호주 공식 관광청', icon: '🦘' }, { name: 'Booking.com', url: 'https://www.booking.com', desc: '숙소 예약', icon: '🏨' }, { name: 'Viator', url: 'https://www.viator.com', desc: '투어·액티비티', icon: '🤿' }]
+  },
+  {
+    id: 'greece', flag: '🇬🇷', continent: '유럽',
+    name: { ko: '그리스', en: 'Greece', ja: 'ギリシャ', zh: '希腊' },
+    tagline: { ko: '신화와 파란 하늘', en: 'Myths & Azure Skies', ja: '神話と青い空', zh: '神话与湛蓝天空' },
+    desc: { ko: '산토리니, 파르테논, 지중해 음식과 흰 건물의 나라', en: 'Santorini, Parthenon, Mediterranean food, and whitewashed buildings', ja: 'サントリーニ、パルテノン、地中海料理と白い建物', zh: '圣托里尼、帕特农神庙、地中海美食与白色建筑' },
+    img: 'https://images.unsplash.com/photo-1533105079780-92b9be482077?w=800&q=80',
+    photos: [
+      'https://images.unsplash.com/photo-1533105079780-92b9be482077?w=400&q=80',
+      'https://images.unsplash.com/photo-1530841377377-3ff06c0ca713?w=400&q=80',
+      'https://images.unsplash.com/photo-1555993539-1732b0258235?w=400&q=80',
+      'https://images.unsplash.com/photo-1612278675615-7b093b07772d?w=400&q=80'
+    ],
+    tags: ['산토리니', '파르테논', '올리브', '크루즈'],
+    mapPos: { x: 50, y: 31 },
+    overview: { ko: { capital: '아테네', currency: '유로 (EUR)', climate: '지중해성', bestTime: '봄(4-6월), 초가을(9-10월)', language: '그리스어', timezone: 'GMT+2' }, en: { capital: 'Athens', currency: 'Euro (EUR)', climate: 'Mediterranean', bestTime: 'Spring (Apr-Jun), Early Fall (Sep-Oct)', language: 'Greek', timezone: 'GMT+2' } },
+    attractions: ['산토리니 — 파란 돔의 절벽 마을', '아크로폴리스 — 2500년 역사의 신전', '미코노스 — 지중해의 파티 섬', '크레타 — 그리스 최대 섬', '델피 — 고대 신탁의 성지', '에게 해 크루즈 — 섬 투어'],
+    transport: { fromKorea: '인천→아테네 약 13시간', flight: '경유 편 이용', accommodation: '동굴 호텔~부티크 리조트', localTransport: '페리, 버스, 렌터카' },
+    recommend: { desc: { ko: '허니문 커플, 역사 팬, 지중해 식도락가, 인스타 사진 여행자에게 최고입니다.', en: 'Best for honeymooners, history fans, Mediterranean food lovers, and Instagram travelers.' }, tags: ['허니문', '커플', '역사 팬', '사진 여행', '크루즈'] },
+    links: [{ name: 'Visit Greece', url: 'https://www.visitgreece.gr', desc: '그리스 공식 관광청', icon: '🏛️' }, { name: 'Booking.com', url: 'https://www.booking.com', desc: '숙소 예약', icon: '🏨' }, { name: 'Viator', url: 'https://www.viator.com', desc: '투어 예약', icon: '⛵' }]
+  },
+  {
+    id: 'maldives', flag: '🇲🇻', continent: '아시아',
+    name: { ko: '몰디브', en: 'Maldives', ja: 'モルディブ', zh: '马尔代夫' },
+    tagline: { ko: '지상 최고의 낙원', en: 'Paradise on Earth', ja: '地上最高の楽園', zh: '人间天堂' },
+    desc: { ko: '수상 방갈로, 투명한 바다, 형형색색의 산호초', en: 'Overwater bungalows, crystal-clear water, and colorful coral reefs', ja: '水上バンガロー、透明な海、カラフルなサンゴ礁', zh: '水上木屋、清澈海水与缤纷珊瑚礁' },
+    img: 'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=800&q=80',
+    photos: [
+      'https://images.unsplash.com/photo-1514282401047-d79a71a590e8?w=400&q=80',
+      'https://images.unsplash.com/photo-1573843981267-be1999ff37cd?w=400&q=80',
+      'https://images.unsplash.com/photo-1540202404-a2f29016b523?w=400&q=80',
+      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80'
+    ],
+    tags: ['수상방갈로', '스노클링', '다이빙', '허니문'],
+    mapPos: { x: 65, y: 47 },
+    overview: { ko: { capital: '말레', currency: '루피야 (MVR)', climate: '열대 몬순', bestTime: '12월~4월 (건기)', language: '디베히어', timezone: 'GMT+5' }, en: { capital: 'Malé', currency: 'Rufiyaa (MVR)', climate: 'Tropical monsoon', bestTime: 'Dec-Apr (dry season)', language: 'Dhivehi', timezone: 'GMT+5' } },
+    attractions: ['수상 방갈로 — 바다 위의 럭셔리', '야광 플랑크톤 해변 — 신비의 밤바다', '만타레이 포인트 — 쥐가오리와 수영', '남아틸 환초 — 세계 최고 다이빙', '말레 시장 — 현지 생활 탐방', '선셋 크루즈 — 환상적인 노을'],
+    transport: { fromKorea: '인천→말레 약 9시간', flight: '경유 편 이용', accommodation: '수상 방갈로~5성 리조트', localTransport: '수상 비행기, 스피드보트' },
+    recommend: { desc: { ko: '허니문 커플, 다이빙 마니아, 럭셔리 여행자, 완전한 휴식을 원하는 분께 최적입니다.', en: 'Perfect for honeymooners, divers, luxury travelers, and those seeking total relaxation.' }, tags: ['허니문', '커플', '다이빙', '럭셔리', '힐링'] },
+    links: [{ name: 'Maldives Tourism', url: 'https://www.visitmaldives.com', desc: '몰디브 관광청', icon: '🏝️' }, { name: 'Booking.com', url: 'https://www.booking.com', desc: '리조트 예약', icon: '🏨' }, { name: 'Agoda', url: 'https://www.agoda.com', desc: '숙소 예약', icon: '🌊' }]
+  },
+  {
+    id: 'turkey', flag: '🇹🇷', continent: '중동',
+    name: { ko: '튀르키예', en: 'Türkiye', ja: 'トルコ', zh: '土耳其' },
+    tagline: { ko: '두 대륙의 만남', en: 'Where Two Continents Meet', ja: '二大陸の出会い', zh: '两大洲的交汇' },
+    desc: { ko: '카파도키아 열기구, 블루모스크, 지중해 해변의 나라', en: 'Cappadocia hot air balloons, Blue Mosque, and Mediterranean coast', ja: 'カッパドキア気球、ブルーモスク、地中海沿岸', zh: '卡帕多西亚热气球、蓝色清真寺与地中海海岸' },
+    img: 'https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?w=800&q=80',
+    photos: [
+      'https://images.unsplash.com/photo-1541432901042-2d8bd64b4a9b?w=400&q=80',
+      'https://images.unsplash.com/photo-1524231757912-21f4fe3a7200?w=400&q=80',
+      'https://images.unsplash.com/photo-1578662996442-48f60103fc96?w=400&q=80',
+      'https://images.unsplash.com/photo-1570939274717-7eda259b50ed?w=400&q=80'
+    ],
+    tags: ['열기구', '모스크', '바자르', '지중해'],
+    mapPos: { x: 53, y: 30 },
+    overview: { ko: { capital: '앙카라', currency: '리라 (TRY)', climate: '지역별 다양', bestTime: '봄(4-5월), 가을(9-10월)', language: '터키어', timezone: 'GMT+3' }, en: { capital: 'Ankara', currency: 'Lira (TRY)', climate: 'Varies by region', bestTime: 'Spring (Apr-May), Fall (Sep-Oct)', language: 'Turkish', timezone: 'GMT+3' } },
+    attractions: ['카파도키아 — 요정의 굴뚝과 열기구', '이스탄불 그랜드 바자르 — 4000개 상점', '하기아 소피아 — 비잔틴 건축의 걸작', '파묵칼레 — 목화 성 온천', '에페수스 — 고대 로마 도시', '보드룸 — 에게 해 리조트'],
+    transport: { fromKorea: '인천→이스탄불 약 11시간', flight: '직항 다수', accommodation: '케이브 호텔~5성 리조트', localTransport: '버스, 국내선, 렌터카' },
+    recommend: { desc: { ko: '역사 탐방, 색다른 경험을 원하는 여행자, 저예산 유럽 여행자에게 최고입니다.', en: 'Great for history buffs, unique experience seekers, and budget European travelers.' }, tags: ['역사 탐방', '색다른 경험', '저예산', '사진 여행', '쇼핑'] },
+    links: [{ name: 'Go Türkiye', url: 'https://www.goturkiye.com', desc: '튀르키예 공식 관광청', icon: '🕌' }, { name: 'Booking.com', url: 'https://www.booking.com', desc: '숙소 예약', icon: '🏨' }, { name: 'GetYourGuide', url: 'https://www.getyourguide.com', desc: '투어 예약', icon: '🎈' }]
+  },
+  {
+    id: 'china', flag: '🇨🇳', continent: '아시아',
+    name: { ko: '중국', en: 'China', ja: '中国', zh: '中国' },
+    tagline: { ko: '오천년 문명의 나라', en: '5,000 Years of Civilization', ja: '5000年の文明', zh: '五千年文明古国' },
+    desc: { ko: '만리장성, 자금성, 장가계, 다양한 요리의 대국', en: 'Great Wall, Forbidden City, Zhangjiajie, and diverse cuisine', ja: '万里の長城、故宮、張家界、多彩な料理の大国', zh: '长城、故宫、张家界与多元美食的大国' },
+    img: 'https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=800&q=80',
+    photos: [
+      'https://images.unsplash.com/photo-1508804185872-d7badad00f7d?w=400&q=80',
+      'https://images.unsplash.com/photo-1547981609-4b6bfe67ca0b?w=400&q=80',
+      'https://images.unsplash.com/photo-1513415277900-a62401e19be4?w=400&q=80',
+      'https://images.unsplash.com/photo-1537531568023-e51b98b77b82?w=400&q=80'
+    ],
+    tags: ['만리장성', '자금성', '딤섬', '자연'],
+    mapPos: { x: 74, y: 30 },
+    overview: { ko: { capital: '베이징', currency: '위안 (CNY)', climate: '지역별 다양', bestTime: '봄(4-5월), 가을(9-10월)', language: '중국어', timezone: 'GMT+8' }, en: { capital: 'Beijing', currency: 'Yuan (CNY)', climate: 'Varies by region', bestTime: 'Spring (Apr-May), Fall (Sep-Oct)', language: 'Mandarin', timezone: 'GMT+8' } },
+    attractions: ['만리장성 — 세계 7대 불가사의', '자금성 — 황제의 황금 궁전', '장가계 — 아바타 촬영지 기둥 산', '리강 — 계림 크루즈', '서안 병마용 — 8000개의 테라코타 병사', '상하이 와이탄 — 미래와 과거의 공존'],
+    transport: { fromKorea: '인천→베이징 약 2시간', flight: '직항 다수', accommodation: '게스트하우스~럭셔리 호텔', localTransport: '고속철(CRH), 지하철, 디디' },
+    recommend: { desc: { ko: '역사 마니아, 자연 탐험가, 미식가, 아시아 문화 탐방자에게 완벽합니다.', en: 'Perfect for history lovers, nature explorers, foodies, and Asian culture fans.' }, tags: ['역사 마니아', '자연 탐험', '미식가', '사진 여행', '문화 탐방'] },
+    links: [{ name: 'China Tourism', url: 'https://www.cnto.org', desc: '중국 관광청', icon: '🏯' }, { name: 'Booking.com', url: 'https://www.booking.com', desc: '숙소 예약', icon: '🏨' }, { name: 'Ctrip', url: 'https://www.trip.com', desc: '중국 여행 전문', icon: '✈️' }]
+  },
+  {
+    id: 'dubai', flag: '🇦🇪', continent: '중동',
+    name: { ko: '두바이', en: 'Dubai (UAE)', ja: 'ドバイ', zh: '迪拜' },
+    tagline: { ko: '미래가 현실이 된 도시', en: 'Where the Future is Real', ja: '未来が現実になった都市', zh: '未来已成现实的城市' },
+    desc: { ko: '부르즈 할리파, 사막 사파리, 세계 최고의 쇼핑몰', en: 'Burj Khalifa, desert safari, and world-class malls', ja: 'ブルジュ・ハリファ、砂漠サファリ、世界一のショッピングモール', zh: '哈利法塔、沙漠探险与世界级购物中心' },
+    img: 'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=800&q=80',
+    photos: [
+      'https://images.unsplash.com/photo-1512453979798-5ea266f8880c?w=400&q=80',
+      'https://images.unsplash.com/photo-1518684079-3c830dcef090?w=400&q=80',
+      'https://images.unsplash.com/photo-1549180030-48bf079fb38a?w=400&q=80',
+      'https://images.unsplash.com/photo-1588416499018-d8c621e7d2c2?w=400&q=80'
+    ],
+    tags: ['마천루', '사막', '럭셔리', '쇼핑'],
+    mapPos: { x: 59, y: 37 },
+    overview: { ko: { capital: '아부다비 (UAE)', currency: '디르함 (AED)', climate: '사막 기후', bestTime: '10월~4월', language: '아랍어', timezone: 'GMT+4' }, en: { capital: 'Abu Dhabi (UAE)', currency: 'Dirham (AED)', climate: 'Desert', bestTime: 'Oct-Apr', language: 'Arabic', timezone: 'GMT+4' } },
+    attractions: ['부르즈 할리파 — 세계 최고층 빌딩', '두바이 몰 — 세계 최대 쇼핑몰', '사막 사파리 — 모래 언덕 드라이브', '팜 주메이라 — 인공 야자수 섬', '두바이 폭포 — 세계 최대 실내 폭포', '골드 수크 — 황금의 거리'],
+    transport: { fromKorea: '인천→두바이 약 9시간', flight: '직항 및 에미레이츠 경유', accommodation: '사막 캠프~7성 버즈 알 아랍', localTransport: '메트로, 택시, 우버' },
+    recommend: { desc: { ko: '럭셔리 여행자, 쇼핑 마니아, 비즈니스 출장자, 이색 체험 여행자에게 완벽합니다.', en: 'Perfect for luxury travelers, shoppers, business travelers, and unique experience seekers.' }, tags: ['럭셔리', '쇼핑', '비즈니스', '이색 체험', '가족'] },
+    links: [{ name: 'Dubai Tourism', url: 'https://www.visitdubai.com', desc: '두바이 공식 관광청', icon: '🏙️' }, { name: 'Booking.com', url: 'https://www.booking.com', desc: '숙소 예약', icon: '🏨' }, { name: 'Klook', url: 'https://www.klook.com', desc: '액티비티 예약', icon: '🎫' }]
+  },
+  {
+    id: 'vietnam', flag: '🇻🇳', continent: '아시아',
+    name: { ko: '베트남', en: 'Vietnam', ja: 'ベトナム', zh: '越南' },
+    tagline: { ko: '다양함의 땅', en: 'Land of Diversity', ja: '多様性の地', zh: '多样性之地' },
+    desc: { ko: '하롱베이, 쌀국수, 다낭 해변, 고대 도시 호이안', en: 'Ha Long Bay, Pho, Da Nang beach, and ancient Hoi An', ja: 'ハロン湾、フォー、ダナンビーチ、古都ホイアン', zh: '下龙湾、越南河粉、岘港海滩与古城会安' },
+    img: 'https://images.unsplash.com/photo-1528127269322-539801943592?w=800&q=80',
+    photos: [
+      'https://images.unsplash.com/photo-1528127269322-539801943592?w=400&q=80',
+      'https://images.unsplash.com/photo-1583417319070-4a69db38a482?w=400&q=80',
+      'https://images.unsplash.com/photo-1557750255-c06c29cb8f47?w=400&q=80',
+      'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=400&q=80'
+    ],
+    tags: ['하롱베이', '쌀국수', '해변', '저예산'],
+    mapPos: { x: 74, y: 42 },
+    overview: { ko: { capital: '하노이', currency: '동 (VND)', climate: '열대 몬순', bestTime: '2월~4월(중부·남부)', language: '베트남어', timezone: 'GMT+7' }, en: { capital: 'Hanoi', currency: 'Dong (VND)', climate: 'Tropical monsoon', bestTime: 'Feb-Apr (Central/South)', language: 'Vietnamese', timezone: 'GMT+7' } },
+    attractions: ['하롱베이 — 유네스코 에메랄드 만', '호이안 — 등불 빛나는 고대 도시', '다낭 미케 해변 — 황금 모래사장', '무이네 사구 — 베트남의 사막', '후에 황성 — 마지막 왕조 수도', '사파 — 계단식 논 트레킹'],
+    transport: { fromKorea: '인천→하노이 약 5시간', flight: '직항 다수', accommodation: '게스트하우스~럭셔리 리조트', localTransport: '오토바이, 버스, 기차' },
+    recommend: { desc: { ko: '저예산 여행자, 배낭여행자, 미식가, 자연 탐험가에게 인기 최고입니다.', en: 'Top pick for budget travelers, backpackers, foodies, and nature explorers.' }, tags: ['저예산', '배낭여행', '미식가', '자연 탐험', '커플'] },
+    links: [{ name: 'Vietnam Tourism', url: 'https://vietnam.travel', desc: '베트남 공식 관광청', icon: '🌅' }, { name: 'Agoda', url: 'https://www.agoda.com', desc: '숙소 예약', icon: '🏨' }, { name: 'Klook', url: 'https://www.klook.com', desc: '투어 예약', icon: '🚤' }]
+  },
+  {
+    id: 'canada', flag: '🇨🇦', continent: '아메리카',
+    name: { ko: '캐나다', en: 'Canada', ja: 'カナダ', zh: '加拿大' },
+    tagline: { ko: '광활한 대자연', en: 'Vast Wilderness', ja: '広大な大自然', zh: '广阔的大自然' },
+    desc: { ko: '나이아가라 폭포, 로키 산맥, 오로라, 단풍의 나라', en: 'Niagara Falls, Rocky Mountains, Northern Lights, and maple leaves', ja: 'ナイアガラの滝、ロッキー山脈、オーロラ、紅葉', zh: '尼亚加拉瀑布、落基山脉、北极光与枫叶' },
+    img: 'https://images.unsplash.com/photo-1517935706615-2717063c2225?w=800&q=80',
+    photos: [
+      'https://images.unsplash.com/photo-1517935706615-2717063c2225?w=400&q=80',
+      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80',
+      'https://images.unsplash.com/photo-1529963183134-61a90db47eaf?w=400&q=80',
+      'https://images.unsplash.com/photo-1445543949571-ffc3e0e2f55e?w=400&q=80'
+    ],
+    tags: ['오로라', '나이아가라', '단풍', '로키'],
+    mapPos: { x: 18, y: 22 },
+    overview: { ko: { capital: '오타와', currency: '캐나다달러 (CAD)', climate: '대륙성', bestTime: '여름(6-8월), 가을 단풍(9-10월)', language: '영어·프랑스어', timezone: 'GMT-3.5~-8' }, en: { capital: 'Ottawa', currency: 'CAD', climate: 'Continental', bestTime: 'Summer (Jun-Aug), Fall foliage (Sep-Oct)', language: 'English/French', timezone: 'GMT-3.5~-8' } },
+    attractions: ['나이아가라 폭포 — 세계 3대 폭포', '밴프 국립공원 — 에메랄드빛 레이크루이즈', '오로라 옐로나이프 — 북극광 감상', '퀘벡 시티 — 유럽풍 프랑스 도시', '밴쿠버 — 산과 바다의 도시', '토론토 CN타워 — 스카이라인 전망'],
+    transport: { fromKorea: '인천→밴쿠버 약 10시간', flight: '직항 다수', accommodation: '캠핑~럭셔리 리조트', localTransport: '렌터카, 국내선, 기차' },
+    recommend: { desc: { ko: '자연 탐험가, 오로라 마니아, 이민 준비생, 어학 연수자에게 완벽합니다.', en: 'Perfect for nature lovers, aurora fans, immigration seekers, and language learners.' }, tags: ['자연 탐험', '오로라', '어학 연수', '가족 여행', '캠핑'] },
+    links: [{ name: 'Destination Canada', url: 'https://www.destinationcanada.com', desc: '캐나다 공식 관광청', icon: '🍁' }, { name: 'Booking.com', url: 'https://www.booking.com', desc: '숙소 예약', icon: '🏨' }, { name: 'Expedia', url: 'https://www.expedia.com', desc: '항공+호텔', icon: '✈️' }]
+  },
+  {
+    id: 'mexico', flag: '🇲🇽', continent: '아메리카',
+    name: { ko: '멕시코', en: 'Mexico', ja: 'メキシコ', zh: '墨西哥' },
+    tagline: { ko: '마야 문명의 후예', en: 'Heirs of the Maya', ja: 'マヤ文明の末裔', zh: '玛雅文明的传承' },
+    desc: { ko: '마야 피라미드, 카리브해, 타코, 활기찬 축제', en: 'Maya pyramids, Caribbean beaches, tacos, and vibrant festivals', ja: 'マヤのピラミッド、カリブ海、タコス、活気あるフェスタ', zh: '玛雅金字塔、加勒比海滩、墨西哥卷饼与热闹节庆' },
+    img: 'https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?w=800&q=80',
+    photos: [
+      'https://images.unsplash.com/photo-1518105779142-d975f22f1b0a?w=400&q=80',
+      'https://images.unsplash.com/photo-1547155111-8ba64e89fba6?w=400&q=80',
+      'https://images.unsplash.com/photo-1555396273-367ea4eb4db5?w=400&q=80',
+      'https://images.unsplash.com/photo-1591121792023-df7c39f9a8f2?w=400&q=80'
+    ],
+    tags: ['마야 유적', '칸쿤', '타코', '세노테'],
+    mapPos: { x: 17, y: 38 },
+    overview: { ko: { capital: '멕시코시티', currency: '페소 (MXN)', climate: '열대/건조', bestTime: '12월~4월', language: '스페인어', timezone: 'GMT-6~-8' }, en: { capital: 'Mexico City', currency: 'Peso (MXN)', climate: 'Tropical/Dry', bestTime: 'Dec-Apr', language: 'Spanish', timezone: 'GMT-6~-8' } },
+    attractions: ['치첸이트사 — 세계 7대 불가사의 피라미드', '칸쿤 — 카리브해의 투명한 에메랄드', '세노테 — 마야 지하 신성 우물', '오아하카 — 색채의 도시 & 고대 문명', '테오티우아칸 — 태양과 달의 피라미드', '코바 — 밀림 속 마야 피라미드'],
+    transport: { fromKorea: '인천→멕시코시티 약 17시간', flight: '경유 편 이용', accommodation: '리조트~에코 로지', localTransport: '버스, 렌터카, 페리' },
+    recommend: { desc: { ko: '고대 문명 탐방, 해변 휴양, 음식 탐험, 배낭여행자에게 인기입니다.', en: 'Popular for ancient civilization fans, beach lovers, food explorers, and backpackers.' }, tags: ['고대 문명', '해변 러버', '미식가', '배낭여행', '다이빙'] },
+    links: [{ name: 'Visit Mexico', url: 'https://www.visitmexico.com', desc: '멕시코 공식 관광청', icon: '🌮' }, { name: 'Booking.com', url: 'https://www.booking.com', desc: '숙소 예약', icon: '🏨' }, { name: 'Viator', url: 'https://www.viator.com', desc: '투어 예약', icon: '🏛️' }]
+  },
+  {
+    id: 'switzerland', flag: '🇨🇭', continent: '유럽',
+    name: { ko: '스위스', en: 'Switzerland', ja: 'スイス', zh: '瑞士' },
+    tagline: { ko: '알프스의 보석', en: 'Jewel of the Alps', ja: 'アルプスの宝石', zh: '阿尔卑斯明珠' },
+    desc: { ko: '마터호른, 융프라우, 초콜릿, 시계의 나라', en: 'Matterhorn, Jungfrau, chocolate, and Swiss watches', ja: 'マッターホルン、ユングフラウ、チョコレート、時計', zh: '马特洪峰、少女峰、巧克力与瑞士钟表' },
+    img: 'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=800&q=80',
+    photos: [
+      'https://images.unsplash.com/photo-1506905925346-21bda4d32df4?w=400&q=80',
+      'https://images.unsplash.com/photo-1531973576160-7125cd663d86?w=400&q=80',
+      'https://images.unsplash.com/photo-1527668752968-14dc70a27c96?w=400&q=80',
+      'https://images.unsplash.com/photo-1504233529578-6d46baba6d34?w=400&q=80'
+    ],
+    tags: ['알프스', '스키', '초콜릿', '트레킹'],
+    mapPos: { x: 47, y: 27 },
+    overview: { ko: { capital: '베른', currency: '스위스프랑 (CHF)', climate: '온화 (고도별)', bestTime: '여름(6-9월), 겨울 스키(12-3월)', language: '독일어·프랑스어·이탈리아어', timezone: 'GMT+1' }, en: { capital: 'Bern', currency: 'CHF', climate: 'Mild (altitude-dependent)', bestTime: 'Summer (Jun-Sep), Winter ski (Dec-Mar)', language: 'German/French/Italian', timezone: 'GMT+1' } },
+    attractions: ['융프라우요흐 — 유럽의 지붕(3454m)', '마터호른 — 스위스의 상징', '인터라켄 — 액티비티 천국', '루체른 — 오래된 다리와 호수', '제네바 — 국제기구의 도시', '그린델발트 — 알프스 트레킹'],
+    transport: { fromKorea: '인천→취리히 약 13시간', flight: '경유 편 이용', accommodation: '샬레~럭셔리 호텔', localTransport: '스위스패스, 케이블카, 등산철도' },
+    recommend: { desc: { ko: '자연 탐험가, 스키 마니아, 럭셔리 여행자, 신혼여행 커플에게 최적입니다.', en: 'Perfect for nature lovers, skiers, luxury travelers, and honeymoon couples.' }, tags: ['스키', '자연 탐험', '럭셔리', '허니문', '트레킹'] },
+    links: [{ name: 'MySwitzerland', url: 'https://www.myswitzerland.com', desc: '스위스 공식 관광청', icon: '🏔️' }, { name: 'Booking.com', url: 'https://www.booking.com', desc: '숙소 예약', icon: '🏨' }, { name: 'GetYourGuide', url: 'https://www.getyourguide.com', desc: '투어 예약', icon: '⛷️' }]
+  },
+  {
+    id: 'singapore', flag: '🇸🇬', continent: '아시아',
+    name: { ko: '싱가포르', en: 'Singapore', ja: 'シンガポール', zh: '新加坡' },
+    tagline: { ko: '아시아의 허브', en: 'Hub of Asia', ja: 'アジアのハブ', zh: '亚洲枢纽' },
+    desc: { ko: '마리나베이샌즈, 가든스 바이 더 베이, 다양한 음식 문화', en: 'Marina Bay Sands, Gardens by the Bay, and multicultural food scene', ja: 'マリーナベイサンズ、ガーデンズ・バイ・ザ・ベイ、多様な食文化', zh: '滨海湾金沙、滨海湾花园与多元美食文化' },
+    img: 'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=800&q=80',
+    photos: [
+      'https://images.unsplash.com/photo-1525625293386-3f8f99389edd?w=400&q=80',
+      'https://images.unsplash.com/photo-1508964942454-1a56651d54ac?w=400&q=80',
+      'https://images.unsplash.com/photo-1503899036084-c55cdd92da26?w=400&q=80',
+      'https://images.unsplash.com/photo-1485871800513-4ff8f5e38a67?w=400&q=80'
+    ],
+    tags: ['마리나베이', '호커센터', '가든스', '쇼핑'],
+    mapPos: { x: 75, y: 47 },
+    overview: { ko: { capital: '싱가포르', currency: '싱가포르달러 (SGD)', climate: '열대 우림', bestTime: '2월~4월, 7월~9월', language: '영어·중국어·말레이어', timezone: 'GMT+8' }, en: { capital: 'Singapore', currency: 'SGD', climate: 'Tropical rainforest', bestTime: 'Feb-Apr, Jul-Sep', language: 'English/Chinese/Malay', timezone: 'GMT+8' } },
+    attractions: ['마리나베이샌즈 — 무한 수영장', '가든스 바이 더 베이 — 슈퍼트리', '센토사 섬 — 유니버설 스튜디오', '차이나타운·리틀인디아 — 다문화 체험', '클락키 — 강변 나이트라이프', '호커센터 — 싱가포르 로컬 음식'],
+    transport: { fromKorea: '인천→싱가포르 약 7시간', flight: '직항 다수', accommodation: '호스텔~5성 리조트', localTransport: 'MRT, 버스, 택시' },
+    recommend: { desc: { ko: '가족 여행, 미식가, 쇼핑러, 환승 여행자에게 완벽한 도시국가입니다.', en: 'Perfect city-state for families, foodies, shoppers, and transit travelers.' }, tags: ['가족 여행', '미식가', '쇼핑', '비즈니스', '환승'] },
+    links: [{ name: 'Visit Singapore', url: 'https://www.visitsingapore.com', desc: '싱가포르 공식 관광청', icon: '🦁' }, { name: 'Booking.com', url: 'https://www.booking.com', desc: '숙소 예약', icon: '🏨' }, { name: 'Klook', url: 'https://www.klook.com', desc: '액티비티 예약', icon: '🎡' }]
+  },
+  {
+    id: 'indonesia', flag: '🇮🇩', continent: '아시아',
+    name: { ko: '인도네시아', en: 'Indonesia', ja: 'インドネシア', zh: '印度尼西亚' },
+    tagline: { ko: '1만 7천 섬의 나라', en: '17,000 Islands of Wonder', ja: '1万7千の島の国', zh: '一万七千座岛屿之国' },
+    desc: { ko: '발리, 보로부두르, 코모도, 오랑우탄의 천국', en: 'Bali, Borobudur, Komodo dragons, and orangutans', ja: 'バリ、ボロブドゥール、コモドドラゴン、オランウータン', zh: '巴厘岛、婆罗浮屠、科莫多龙与猩猩天堂' },
+    img: 'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=800&q=80',
+    photos: [
+      'https://images.unsplash.com/photo-1537996194471-e657df975ab4?w=400&q=80',
+      'https://images.unsplash.com/photo-1555400038-63f5ba517a47?w=400&q=80',
+      'https://images.unsplash.com/photo-1518548419970-58e3b4079ab2?w=400&q=80',
+      'https://images.unsplash.com/photo-1504214208698-ea446addbe6b?w=400&q=80'
+    ],
+    tags: ['발리', '서핑', '사원', '열대'],
+    mapPos: { x: 77, y: 50 },
+    overview: { ko: { capital: '자카르타', currency: '루피아 (IDR)', climate: '열대 우림', bestTime: '4월~10월 (건기)', language: '인도네시아어', timezone: 'GMT+7~+9' }, en: { capital: 'Jakarta', currency: 'Rupiah (IDR)', climate: 'Tropical rainforest', bestTime: 'Apr-Oct (dry season)', language: 'Indonesian', timezone: 'GMT+7~+9' } },
+    attractions: ['발리 우붓 — 예술과 라이스테라스', '쿠타 해변 — 세계 최고의 서핑', '보로부두르 — 세계 최대 불교 사원', '코모도 섬 — 살아있는 공룡', '롬복 린자니 — 화산 트레킹', '라자 암팟 — 세계 최고의 다이빙'],
+    transport: { fromKorea: '인천→발리 약 7시간', flight: '직항 다수', accommodation: '빌라~럭셔리 리조트', localTransport: '렌터카, 오토바이, 고젝' },
+    recommend: { desc: { ko: '서퍼, 자연 탐험가, 요가·힐링 여행자, 저예산 배낭여행자에게 최적입니다.', en: 'Best for surfers, nature explorers, yoga/healing travelers, and budget backpackers.' }, tags: ['서핑', '자연 탐험', '힐링', '배낭여행', '다이빙'] },
+    links: [{ name: 'Wonderful Indonesia', url: 'https://www.indonesia.travel', desc: '인도네시아 관광청', icon: '🌺' }, { name: 'Agoda', url: 'https://www.agoda.com', desc: '숙소 예약', icon: '🏨' }, { name: 'Klook', url: 'https://www.klook.com', desc: '투어 예약', icon: '🤿' }]
+  },
+  {
+    id: 'peru', flag: '🇵🇪', continent: '아메리카',
+    name: { ko: '페루', en: 'Peru', ja: 'ペルー', zh: '秘鲁' },
+    tagline: { ko: '잉카 제국의 심장', en: 'Heart of the Inca Empire', ja: 'インカ帝国の心', zh: '印加帝国之心' },
+    desc: { ko: '마추픽추, 티티카카 호수, 아마존, 세비체', en: 'Machu Picchu, Lake Titicaca, Amazon, and ceviche', ja: 'マチュ・ピチュ、チチカカ湖、アマゾン、セビーチェ', zh: '马丘比丘、的的喀喀湖、亚马逊与柠汁腌鱼' },
+    img: 'https://images.unsplash.com/photo-1587595431973-160d0d94add1?w=800&q=80',
+    photos: [
+      'https://images.unsplash.com/photo-1587595431973-160d0d94add1?w=400&q=80',
+      'https://images.unsplash.com/photo-1580666700958-04ec0d5db99e?w=400&q=80',
+      'https://images.unsplash.com/photo-1554232682-b9ef9c92f8de?w=400&q=80',
+      'https://images.unsplash.com/photo-1494959764136-6be9eb3c261e?w=400&q=80'
+    ],
+    tags: ['마추픽추', '잉카', '아마존', '트레킹'],
+    mapPos: { x: 22, y: 55 },
+    overview: { ko: { capital: '리마', currency: '솔 (PEN)', climate: '고산·열대', bestTime: '4월~10월 (건기)', language: '스페인어', timezone: 'GMT-5' }, en: { capital: 'Lima', currency: 'Sol (PEN)', climate: 'Highland/Tropical', bestTime: 'Apr-Oct (dry season)', language: 'Spanish', timezone: 'GMT-5' } },
+    attractions: ['마추픽추 — 공중의 잉카 도시', '쿠스코 — 잉카 제국의 수도', '티티카카 호수 — 세계 최고고도 항행호수', '나스카 라인 — 고대 지상화', '아마존 밀림 — 세계의 허파', '와이나픽추 — 마추픽추 전망대'],
+    transport: { fromKorea: '인천→리마 약 19시간', flight: '경유 1-2회', accommodation: '게스트하우스~에코 로지', localTransport: '국내선, 버스, 기차' },
+    recommend: { desc: { ko: '모험가, 고대 문명 마니아, 트레킹 러버, 남미 탐험가에게 버킷리스트 여행지입니다.', en: 'A bucket-list destination for adventurers, ancient civilization fans, and trekkers.' }, tags: ['모험가', '고대 문명', '트레킹', '남미 탐험', '버킷리스트'] },
+    links: [{ name: 'Peru Travel', url: 'https://www.peru.travel', desc: '페루 공식 관광청', icon: '🏔️' }, { name: 'Booking.com', url: 'https://www.booking.com', desc: '숙소 예약', icon: '🏨' }, { name: 'Viator', url: 'https://www.viator.com', desc: '투어 예약', icon: '🦙' }]
+  },
+  {
+    id: 'morocco', flag: '🇲🇦', continent: '아프리카',
+    name: { ko: '모로코', en: 'Morocco', ja: 'モロッコ', zh: '摩洛哥' },
+    tagline: { ko: '사막과 궁전의 나라', en: 'Land of Deserts & Palaces', ja: '砂漠と宮殿の国', zh: '沙漠与宫殿之国' },
+    desc: { ko: '사하라 사막, 카사블랑카, 마라케시 수크의 신비로운 나라', en: 'Sahara Desert, Casablanca, and magical Marrakech souks', ja: 'サハラ砂漠、カサブランカ、マラケシュの魔法のスーク', zh: '撒哈拉沙漠、卡萨布兰卡与马拉喀什的神奇集市' },
+    img: 'https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?w=800&q=80',
+    photos: [
+      'https://images.unsplash.com/photo-1489749798305-4fea3ae63d43?w=400&q=80',
+      'https://images.unsplash.com/photo-1548018560-c7196548bc6b?w=400&q=80',
+      'https://images.unsplash.com/photo-1553101539-dc2ec0a72e0b?w=400&q=80',
+      'https://images.unsplash.com/photo-1571942676516-bcab84649e44?w=400&q=80'
+    ],
+    tags: ['사하라', '사막 캠핑', '메디나', '향신료'],
+    mapPos: { x: 43, y: 37 },
+    overview: { ko: { capital: '라바트', currency: '디르함 (MAD)', climate: '지중해성/사막', bestTime: '봄(3-5월), 가을(9-11월)', language: '아랍어·프랑스어', timezone: 'GMT+1' }, en: { capital: 'Rabat', currency: 'Dirham (MAD)', climate: 'Mediterranean/Desert', bestTime: 'Spring (Mar-May), Fall (Sep-Nov)', language: 'Arabic/French', timezone: 'GMT+1' } },
+    attractions: ['마라케시 제마엘프나 광장 — 색채의 시장', '사하라 사막 — 낙타 트레킹과 별빛 캠핑', '페스 메디나 — 유네스코 고대 도시', '셰프샤우엔 — 온 마을이 파란 도시', '아이트벤하두 — 사막 요새 카스바', '에사우이라 — 바람의 도시'],
+    transport: { fromKorea: '인천→카사블랑카 약 14시간', flight: '경유 이용', accommodation: '리아드~럭셔리 텐트 캠프', localTransport: '버스, 렌터카, 열차' },
+    recommend: { desc: { ko: '사진 작가, 이색 문화 탐방자, 모험가, 사막 로맨스를 원하는 커플에게 최적입니다.', en: 'Ideal for photographers, culture seekers, adventurers, and couples seeking desert romance.' }, tags: ['사진 작가', '문화 탐방', '모험가', '커플', '이색 여행'] },
+    links: [{ name: 'Maroc Tourism', url: 'https://www.tourism.gov.ma', desc: '모로코 관광청', icon: '🕌' }, { name: 'Booking.com', url: 'https://www.booking.com', desc: '숙소 예약', icon: '🏨' }, { name: 'Viator', url: 'https://www.viator.com', desc: '사막 투어 예약', icon: '🐪' }]
+  },
+  {
+    id: 'norway', flag: '🇳🇴', continent: '유럽',
+    name: { ko: '노르웨이', en: 'Norway', ja: 'ノルウェー', zh: '挪威' },
+    tagline: { ko: '피오르드와 오로라', en: 'Fjords & Northern Lights', ja: 'フィヨルドとオーロラ', zh: '峡湾与北极光' },
+    desc: { ko: '피오르드, 오로라, 바이킹 문화, 북유럽의 자연 천국', en: 'Fjords, Northern Lights, Viking heritage, and Nordic nature', ja: 'フィヨルド、オーロラ、バイキング文化、北欧の自然天国', zh: '峡湾、北极光、维京文化与北欧自然天堂' },
+    img: 'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=800&q=80',
+    photos: [
+      'https://images.unsplash.com/photo-1501854140801-50d01698950b?w=400&q=80',
+      'https://images.unsplash.com/photo-1476610182048-b716b8518aae?w=400&q=80',
+      'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=400&q=80',
+      'https://images.unsplash.com/photo-1529963183134-61a90db47eaf?w=400&q=80'
+    ],
+    tags: ['피오르드', '오로라', '하이킹', '크루즈'],
+    mapPos: { x: 46, y: 20 },
+    overview: { ko: { capital: '오슬로', currency: '크로네 (NOK)', climate: '한대·온대', bestTime: '여름(6-8월), 오로라(12-2월)', language: '노르웨이어', timezone: 'GMT+1' }, en: { capital: 'Oslo', currency: 'NOK', climate: 'Polar/Temperate', bestTime: 'Summer (Jun-Aug), Aurora (Dec-Feb)', language: 'Norwegian', timezone: 'GMT+1' } },
+    attractions: ['게이랑에르 피오르드 — 세계 최고의 협만', '베르겐 — 목조 건물의 한자 도시', '트롬쇠 — 오로라 수도', '요스테달 빙하 — 유럽 최대 빙원', '로포텐 제도 — 극지 어촌 풍경', '플람 철도 — 세계에서 가장 아름다운 기차'],
+    transport: { fromKorea: '인천→오슬로 약 12시간', flight: '경유 이용', accommodation: '하이피알(YHA)~5성 호텔', localTransport: '피오르드 크루즈, 기차, 버스' },
+    recommend: { desc: { ko: '자연 탐험가, 오로라 사냥꾼, 하이킹 마니아, 프리미엄 여행자에게 최고입니다.', en: 'Best for nature explorers, aurora hunters, hikers, and premium travelers.' }, tags: ['자연 탐험', '오로라 사냥', '하이킹', '사진 여행', '럭셔리'] },
+    links: [{ name: 'Visit Norway', url: 'https://www.visitnorway.com', desc: '노르웨이 공식 관광청', icon: '🌌' }, { name: 'Booking.com', url: 'https://www.booking.com', desc: '숙소 예약', icon: '🏨' }, { name: 'Hurtigruten', url: 'https://www.hurtigruten.com', desc: '노르웨이 크루즈', icon: '🚢' }]
+  },
+  {
+    id: 'egypt', flag: '🇪🇬', continent: '아프리카',
+    name: { ko: '이집트', en: 'Egypt', ja: 'エジプト', zh: '埃及' },
+    tagline: { ko: '파라오의 땅', en: 'Land of the Pharaohs', ja: 'ファラオの地', zh: '法老之地' },
+    desc: { ko: '피라미드, 스핑크스, 나일강, 고대 문명의 나라', en: 'Pyramids, Sphinx, Nile River, and ancient civilization', ja: 'ピラミッド、スフィンクス、ナイル川、古代文明', zh: '金字塔、斯芬克斯、尼罗河与古代文明' },
+    img: 'https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?w=800&q=80',
+    photos: [
+      'https://images.unsplash.com/photo-1539650116574-75c0c6d73f6e?w=400&q=80',
+      'https://images.unsplash.com/photo-1568322445389-f64ac2515020?w=400&q=80',
+      'https://images.unsplash.com/photo-1572252009286-268acec5ca0a?w=400&q=80',
+      'https://images.unsplash.com/photo-1553913861-c0fddf2619ee?w=400&q=80'
+    ],
+    tags: ['피라미드', '스핑크스', '나일', '다이빙'],
+    mapPos: { x: 53, y: 38 },
+    overview: { ko: { capital: '카이로', currency: '이집트파운드 (EGP)', climate: '사막', bestTime: '10월~4월', language: '아랍어', timezone: 'GMT+2' }, en: { capital: 'Cairo', currency: 'EGP', climate: 'Desert', bestTime: 'Oct-Apr', language: 'Arabic', timezone: 'GMT+2' } },
+    attractions: ['기자 피라미드 — 세계 7대 불가사의', '룩소르 신전 — 고대 테베의 영광', '아부심벨 — 람세스 2세의 신전', '홍해 다이빙 — 세계 최고 산호초', '나일강 크루즈 — 고대 유적 탐방', '시나이 산 — 모세의 발자취'],
+    transport: { fromKorea: '인천→카이로 약 11시간', flight: '경유 이용', accommodation: '배낭여행 호스텔~5성 리조트', localTransport: '버스, 기차, 페리' },
+    recommend: { desc: { ko: '역사 마니아, 다이빙 러버, 모험가, 고대 문명 탐방자에게 꿈의 목적지입니다.', en: 'A dream destination for history buffs, divers, adventurers, and ancient civilization fans.' }, tags: ['역사 마니아', '다이빙', '모험가', '고대 문명', '사진 여행'] },
+    links: [{ name: 'Egypt Tourism', url: 'https://www.experienceegypt.eg', desc: '이집트 관광청', icon: '🏺' }, { name: 'Booking.com', url: 'https://www.booking.com', desc: '숙소 예약', icon: '🏨' }, { name: 'Viator', url: 'https://www.viator.com', desc: '피라미드 투어', icon: '🔺' }]
+  },
+  {
+    id: 'newzealand', flag: '🇳🇿', continent: '오세아니아',
+    name: { ko: '뉴질랜드', en: 'New Zealand', ja: 'ニュージーランド', zh: '新西兰' },
+    tagline: { ko: '반지의 제왕의 고향', en: 'Home of the Lord of the Rings', ja: '指輪物語の故郷', zh: '指环王的故乡' },
+    desc: { ko: '피오르드랜드, 번지점프, 마오리 문화, 청정 자연', en: 'Fiordland, bungee jumping, Maori culture, and pristine nature', ja: 'フィヨルドランド、バンジージャンプ、マオリ文化、清浄な自然', zh: '峡湾地区、蹦极、毛利文化与纯净自然' },
+    img: 'https://images.unsplash.com/photo-1507699622108-4be3abd695ad?w=800&q=80',
+    photos: [
+      'https://images.unsplash.com/photo-1507699622108-4be3abd695ad?w=400&q=80',
+      'https://images.unsplash.com/photo-1469521669194-babb45599def?w=400&q=80',
+      'https://images.unsplash.com/photo-1485833077593-4134bf1a5f87?w=400&q=80',
+      'https://images.unsplash.com/photo-1516815231560-8f41ec531527?w=400&q=80'
+    ],
+    tags: ['번지점프', '피오르드', '로드트립', '액티비티'],
+    mapPos: { x: 91, y: 73 },
+    overview: { ko: { capital: '웰링턴', currency: '뉴질랜드달러 (NZD)', climate: '온화 해양성', bestTime: '여름(12-2월), 가을(3-5월)', language: '영어·마오리어', timezone: 'GMT+12' }, en: { capital: 'Wellington', currency: 'NZD', climate: 'Mild oceanic', bestTime: 'Summer (Dec-Feb), Fall (Mar-May)', language: 'English/Maori', timezone: 'GMT+12' } },
+    attractions: ['밀포드 사운드 — 세계 8대 불가사의', '퀸스타운 — 모험의 수도', '로토루아 — 마오리 문화와 온천', '마운트 쿡 — 뉴질랜드 최고봉', '호빗마을 — 반지의 제왕 세트장', '와이토모 동굴 — 반딧불이 동굴'],
+    transport: { fromKorea: '인천→오클랜드 약 12시간', flight: '직항 또는 경유', accommodation: '백패커스~럭셔리 롯지', localTransport: '렌터카, 국내선, 버스' },
+    recommend: { desc: { ko: '어드벤처 스포츠 마니아, 자연 탐험가, 워킹홀리데이, 영화 팬에게 최고입니다.', en: 'Best for adventure sports fans, nature explorers, working holiday makers, and movie fans.' }, tags: ['어드벤처', '자연 탐험', '워킹홀리데이', '영화 팬', '로드트립'] },
+    links: [{ name: 'Tourism NZ', url: 'https://www.newzealand.com', desc: '뉴질랜드 공식 관광청', icon: '🥝' }, { name: 'Booking.com', url: 'https://www.booking.com', desc: '숙소 예약', icon: '🏨' }, { name: 'GetYourGuide', url: 'https://www.getyourguide.com', desc: '액티비티 예약', icon: '🏄' }]
+  },
+  {
+    id: 'india', flag: '🇮🇳', continent: '아시아',
+    name: { ko: '인도', en: 'India', ja: 'インド', zh: '印度' },
+    tagline: { ko: '경이로운 다양성', en: 'Incredible Diversity', ja: '驚くべき多様性', zh: '令人叹为观止的多元' },
+    desc: { ko: '타지마할, 갠지스강, 향신료, 요가의 발상지', en: 'Taj Mahal, Ganges River, spices, and the birthplace of yoga', ja: 'タージ・マハル、ガンジス川、スパイス、ヨガ発祥の地', zh: '泰姬陵、恒河、香料与瑜伽发源地' },
+    img: 'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=800&q=80',
+    photos: [
+      'https://images.unsplash.com/photo-1524492412937-b28074a5d7da?w=400&q=80',
+      'https://images.unsplash.com/photo-1477587458883-47145ed94245?w=400&q=80',
+      'https://images.unsplash.com/photo-1545451738-cfd6c6a52591?w=400&q=80',
+      'https://images.unsplash.com/photo-1558618666-fcd25c85cd64?w=400&q=80'
+    ],
+    tags: ['타지마할', '요가', '커리', '문화'],
+    mapPos: { x: 65, y: 38 },
+    overview: { ko: { capital: '뉴델리', currency: '루피 (INR)', climate: '열대·건조·산악', bestTime: '10월~3월', language: '힌디어·영어', timezone: 'GMT+5:30' }, en: { capital: 'New Delhi', currency: 'Rupee (INR)', climate: 'Tropical/Dry/Highland', bestTime: 'Oct-Mar', language: 'Hindi/English', timezone: 'GMT+5:30' } },
+    attractions: ['타지마할 — 세상에서 가장 아름다운 사랑의 증거', '바라나시 — 힌두 성지 갠지스강', '라자스탄 — 사막의 황금 궁전 도시', '고아 — 인도의 히피 해변 낙원', '케랄라 백워터 — 하우스보트 크루즈', '하이데라바드 — 비리야니의 도시'],
+    transport: { fromKorea: '인천→뉴델리 약 8시간', flight: '직항 다수', accommodation: '헤리티지 호텔~5성 리조트', localTransport: '기차(IRCTC), 버스, 툭툭' },
+    recommend: { desc: { ko: '영적 탐구자, 배낭여행자, 문화 탐방자, 음식 모험가에게 강렬한 여행지입니다.', en: 'An intense journey for spiritual seekers, backpackers, culture explorers, and food adventurers.' }, tags: ['영적 탐구', '배낭여행', '문화 탐방', '미식가', '요가'] },
+    links: [{ name: 'Incredible India', url: 'https://www.incredibleindia.org', desc: '인도 공식 관광청', icon: '🕌' }, { name: 'MakeMyTrip', url: 'https://www.makemytrip.com', desc: '인도 여행 전문', icon: '✈️' }, { name: 'Booking.com', url: 'https://www.booking.com', desc: '숙소 예약', icon: '🏨' }]
+  },
+  {
+    id: 'brazil', flag: '🇧🇷', continent: '아메리카',
+    name: { ko: '브라질', en: 'Brazil', ja: 'ブラジル', zh: '巴西' },
+    tagline: { ko: '카니발과 아마존', en: 'Carnival & Amazon', ja: 'カーニバルとアマゾン', zh: '嘉年华与亚马逊' },
+    desc: { ko: '리오 카니발, 이구아수 폭포, 아마존, 코파카바나 해변', en: 'Rio Carnival, Iguazu Falls, Amazon, and Copacabana beach', ja: 'リオのカーニバル、イグアスの滝、アマゾン、コパカバーナ', zh: '里约狂欢节、伊瓜苏瀑布、亚马逊与科帕卡巴纳海滩' },
+    img: 'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=800&q=80',
+    photos: [
+      'https://images.unsplash.com/photo-1483729558449-99ef09a8c325?w=400&q=80',
+      'https://images.unsplash.com/photo-1544989164-31a5cc669e03?w=400&q=80',
+      'https://images.unsplash.com/photo-1552580064-c6e62e78e946?w=400&q=80',
+      'https://images.unsplash.com/photo-1551522435-a13afa10f103?w=400&q=80'
+    ],
+    tags: ['카니발', '이구아수', '해변', '아마존'],
+    mapPos: { x: 26, y: 57 },
+    overview: { ko: { capital: '브라질리아', currency: '헤알 (BRL)', climate: '열대·온대', bestTime: '4월~10월', language: '포르투갈어', timezone: 'GMT-3~-5' }, en: { capital: 'Brasília', currency: 'Real (BRL)', climate: 'Tropical/Temperate', bestTime: 'Apr-Oct', language: 'Portuguese', timezone: 'GMT-3~-5' } },
+    attractions: ['리오 예수상 — 세계 7대 불가사의', '이구아수 폭포 — 세계 최대 폭포군', '아마존 밀림 — 지구 허파 탐험', '코파카바나 — 세계에서 가장 유명한 해변', '살바도르 — 아프리카-브라질 문화 융합', '보니투 — 투명한 강 스노클링'],
+    transport: { fromKorea: '인천→상파울루 약 27시간', flight: '경유 1-2회', accommodation: '포우자다~5성 리조트', localTransport: '국내선, 버스, 우버' },
+    recommend: { desc: { ko: '축제 마니아, 모험가, 자연 탐험가, 해변 러버에게 환상적인 나라입니다.', en: 'A fantastic country for festival lovers, adventurers, nature explorers, and beach lovers.' }, tags: ['축제 마니아', '모험가', '해변 러버', '자연 탐험', '문화 여행'] },
+    links: [{ name: 'Visit Brasil', url: 'https://www.visitbrasil.com', desc: '브라질 공식 관광청', icon: '🌴' }, { name: 'Booking.com', url: 'https://www.booking.com', desc: '숙소 예약', icon: '🏨' }, { name: 'Viator', url: 'https://www.viator.com', desc: '투어 예약', icon: '🎭' }]
+  },
+  {
+    id: 'germany', flag: '🇩🇪', continent: '유럽',
+    name: { ko: '독일', en: 'Germany', ja: 'ドイツ', zh: '德国' },
+    tagline: { ko: '맥주와 성의 나라', en: 'Land of Beer & Castles', ja: 'ビールと城の国', zh: '啤酒与城堡之国' },
+    desc: { ko: '노이슈반슈타인 성, 옥토버페스트, 베를린 장벽, 소시지', en: 'Neuschwanstein Castle, Oktoberfest, Berlin Wall, and sausages', ja: 'ノイシュバンシュタイン城、オクトーバーフェスト、ベルリンの壁、ソーセージ', zh: '新天鹅堡、啤酒节、柏林墙与香肠' },
+    img: 'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=800&q=80',
+    photos: [
+      'https://images.unsplash.com/photo-1467269204594-9661b134dd2b?w=400&q=80',
+      'https://images.unsplash.com/photo-1560930950-5cc20e80e392?w=400&q=80',
+      'https://images.unsplash.com/photo-1534430480872-3498386e7856?w=400&q=80',
+      'https://images.unsplash.com/photo-1520412099551-62b6bafeb5bb?w=400&q=80'
+    ],
+    tags: ['노이슈반슈타인', '맥주', '역사', '크리스마스'],
+    mapPos: { x: 47, y: 25 },
+    overview: { ko: { capital: '베를린', currency: '유로 (EUR)', climate: '온화 대륙성', bestTime: '봄(4-6월), 가을(9-10월)', language: '독일어', timezone: 'GMT+1' }, en: { capital: 'Berlin', currency: 'Euro (EUR)', climate: 'Mild continental', bestTime: 'Spring (Apr-Jun), Fall (Sep-Oct)', language: 'German', timezone: 'GMT+1' } },
+    attractions: ['노이슈반슈타인 성 — 디즈니 성의 원형', '베를린 장벽 & 브란덴부르크문', '뮌헨 옥토버페스트 — 세계 최대 맥주 축제', '로맨틱 가도 — 동화 속 중세 마을', '블랙포레스트 — 독일 신화의 숲', '퀼른 대성당 — 고딕의 걸작'],
+    transport: { fromKorea: '인천→프랑크푸르트 약 12시간', flight: '직항 다수', accommodation: '호스텔~5성 호텔', localTransport: 'ICE 고속열차, 지하철, 버스' },
+    recommend: { desc: { ko: '역사 탐방, 크리스마스 마켓, 맥주 축제, 유럽 자동차 여행을 원하는 분께 최고입니다.', en: 'Best for history buffs, Christmas market fans, beer festival lovers, and European road trippers.' }, tags: ['역사 탐방', '크리스마스', '맥주 축제', '로드트립', '건축'] },
+    links: [{ name: 'Germany Travel', url: 'https://www.germany.travel', desc: '독일 공식 관광청', icon: '🏰' }, { name: 'Booking.com', url: 'https://www.booking.com', desc: '숙소 예약', icon: '🏨' }, { name: 'GetYourGuide', url: 'https://www.getyourguide.com', desc: '투어 예약', icon: '🍺' }]
+  },
+  {
+    id: 'iceland', flag: '🇮🇸', continent: '유럽',
+    name: { ko: '아이슬란드', en: 'Iceland', ja: 'アイスランド', zh: '冰岛' },
+    tagline: { ko: '빙하와 오로라의 섬', en: 'Island of Glaciers & Aurora', ja: '氷河とオーロラの島', zh: '冰川与极光之岛' },
+    desc: { ko: '오로라, 간헐천, 빙하, 화산의 신비로운 불과 얼음의 땅', en: 'Aurora, geysers, glaciers, and volcanoes — fire and ice', ja: 'オーロラ、間欠泉、氷河、火山 — 火と氷の地', zh: '极光、间歇泉、冰川与火山的神秘之地' },
+    img: 'https://images.unsplash.com/photo-1476610182048-b716b8518aae?w=800&q=80',
+    photos: [
+      'https://images.unsplash.com/photo-1476610182048-b716b8518aae?w=400&q=80',
+      'https://images.unsplash.com/photo-1504233529578-6d46baba6d34?w=400&q=80',
+      'https://images.unsplash.com/photo-1531366936337-7c912a4589a7?w=400&q=80',
+      'https://images.unsplash.com/photo-1529963183134-61a90db47eaf?w=400&q=80'
+    ],
+    tags: ['오로라', '빙하', '온천', '고래관찰'],
+    mapPos: { x: 36, y: 18 },
+    overview: { ko: { capital: '레이캬비크', currency: '크로나 (ISK)', climate: '한대 해양성', bestTime: '오로라(10-3월), 백야(6-7월)', language: '아이슬란드어', timezone: 'GMT+0' }, en: { capital: 'Reykjavík', currency: 'Krona (ISK)', climate: 'Polar oceanic', bestTime: 'Aurora (Oct-Mar), Midnight sun (Jun-Jul)', language: 'Icelandic', timezone: 'GMT+0' } },
+    attractions: ['오로라 — 레이캬비크 외곽에서 감상', '골든 서클 — 간헐천·폭포·국립공원', '블루라군 — 지열 온천 스파', '바트나이외쿠들 — 유럽 최대 빙하', '고래 관찰 — 후사비크 투어', '레이캬비크 — 북유럽 스타일 수도'],
+    transport: { fromKorea: '인천→레이캬비크 약 16시간', flight: '경유 이용', accommodation: '농장 숙소~부티크 호텔', localTransport: '렌터카 필수, 버스투어' },
+    recommend: { desc: { ko: '오로라 사냥꾼, 사진 작가, 어드벤처 여행자, 독특한 자연 체험 원하는 분께 최고입니다.', en: 'Best for aurora hunters, photographers, adventure travelers, and unique nature experience seekers.' }, tags: ['오로라 사냥', '사진 작가', '어드벤처', '자연 체험', '커플'] },
+    links: [{ name: 'Visit Iceland', url: 'https://www.visiticeland.com', desc: '아이슬란드 관광청', icon: '🌋' }, { name: 'Booking.com', url: 'https://www.booking.com', desc: '숙소 예약', icon: '🏨' }, { name: 'GetYourGuide', url: 'https://www.getyourguide.com', desc: '오로라 투어', icon: '🌌' }]
+  },
+  {
+    id: 'portugal', flag: '🇵🇹', continent: '유럽',
+    name: { ko: '포르투갈', en: 'Portugal', ja: 'ポルトガル', zh: '葡萄牙' },
+    tagline: { ko: '항해자의 나라', en: 'Land of Explorers', ja: '航海者の国', zh: '航海家之国' },
+    desc: { ko: '리스본 트램, 파두 음악, 포트와인, 대항해 시대의 나라', en: 'Lisbon trams, Fado music, Port wine, and Age of Discovery', ja: 'リスボンのトラム、ファドの音楽、ポートワイン、大航海時代', zh: '里斯本电车、法朵音乐、波特酒与大航海时代' },
+    img: 'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=800&q=80',
+    photos: [
+      'https://images.unsplash.com/photo-1555881400-74d7acaacd8b?w=400&q=80',
+      'https://images.unsplash.com/photo-1513735492246-483525079686?w=400&q=80',
+      'https://images.unsplash.com/photo-1598177855360-31b5fcabb5be?w=400&q=80',
+      'https://images.unsplash.com/photo-1571771894821-ce9b6c11b08e?w=400&q=80'
+    ],
+    tags: ['리스본', '파두', '와인', '서핑'],
+    mapPos: { x: 41, y: 31 },
+    overview: { ko: { capital: '리스본', currency: '유로 (EUR)', climate: '지중해성', bestTime: '봄(3-5월), 초가을(9-10월)', language: '포르투갈어', timezone: 'GMT+0' }, en: { capital: 'Lisbon', currency: 'Euro (EUR)', climate: 'Mediterranean', bestTime: 'Spring (Mar-May), Early Fall (Sep-Oct)', language: 'Portuguese', timezone: 'GMT+0' } },
+    attractions: ['리스본 알파마 — 파두 음악의 고향', '신트라 — 동화 속 왕궁 마을', '포르투 빌라노바 — 포트와인 저장고', '알가르브 해안 — 황금빛 절벽 해변', '나자레 — 세계 최대 파도 서핑', '벨렘 탑 — 대항해 시대의 상징'],
+    transport: { fromKorea: '인천→리스본 약 14시간', flight: '경유 이용', accommodation: '아다도~부티크 호텔', localTransport: '트램, 버스, 기차' },
+    recommend: { desc: { ko: '문화 탐방자, 서퍼, 와인 러버, 저예산 유럽 여행자에게 숨겨진 보석입니다.', en: 'A hidden gem for culture lovers, surfers, wine enthusiasts, and budget European travelers.' }, tags: ['문화 탐방', '서핑', '와인', '저예산', '음식'] },
+    links: [{ name: 'Visit Portugal', url: 'https://www.visitportugal.com', desc: '포르투갈 관광청', icon: '🌊' }, { name: 'Booking.com', url: 'https://www.booking.com', desc: '숙소 예약', icon: '🏨' }, { name: 'Viator', url: 'https://www.viator.com', desc: '투어 예약', icon: '🎸' }]
+  },
+  {
+    id: 'argentina', flag: '🇦🇷', continent: '아메리카',
+    name: { ko: '아르헨티나', en: 'Argentina', ja: 'アルゼンチン', zh: '阿根廷' },
+    tagline: { ko: '탱고와 소고기의 나라', en: 'Land of Tango & Beef', ja: 'タンゴとビーフの国', zh: '探戈与牛肉之国' },
+    desc: { ko: '부에노스아이레스 탱고, 파타고니아, 이과수 폭포', en: 'Buenos Aires tango, Patagonia, and Iguazu Falls', ja: 'ブエノスアイレスのタンゴ、パタゴニア、イグアスの滝', zh: '布宜诺斯艾利斯探戈、巴塔哥尼亚与伊瓜苏瀑布' },
+    img: 'https://images.unsplash.com/photo-1612294037637-ec328d0e075e?w=800&q=80',
+    photos: [
+      'https://images.unsplash.com/photo-1612294037637-ec328d0e075e?w=400&q=80',
+      'https://images.unsplash.com/photo-1544989164-31a5cc669e03?w=400&q=80',
+      'https://images.unsplash.com/photo-1604569714843-b45eb0cd9424?w=400&q=80',
+      'https://images.unsplash.com/photo-1583248369069-9d91f1640fe6?w=400&q=80'
+    ],
+    tags: ['탱고', '파타고니아', '스테이크', '축구'],
+    mapPos: { x: 24, y: 72 },
+    overview: { ko: { capital: '부에노스아이레스', currency: '페소 (ARS)', climate: '온대~한대', bestTime: '봄(10-11월), 가을(3-4월)', language: '스페인어', timezone: 'GMT-3' }, en: { capital: 'Buenos Aires', currency: 'Peso (ARS)', climate: 'Temperate to Polar', bestTime: 'Spring (Oct-Nov), Fall (Mar-Apr)', language: 'Spanish', timezone: 'GMT-3' } },
+    attractions: ['이과수 폭포 — 세계 최대 폭포군', '파타고니아 피츠로이 — 세계 끝의 트레킹', '우수아이아 — 세상 끝의 도시', '부에노스아이레스 탱고 쇼', '페리토 모레노 빙하 — 살아있는 빙하', '살타 — 안데스 고원 도시'],
+    transport: { fromKorea: '인천→부에노스아이레스 약 27시간', flight: '경유 2회', accommodation: '에스탄시아~부티크 호텔', localTransport: '국내선, 장거리 버스, 렌터카' },
+    recommend: { desc: { ko: '모험가, 자연 탐험가, 축구 팬, 탱고 러버에게 최남단의 꿈의 목적지입니다.', en: 'A dream destination at the end of the world for adventurers, trekkers, and tango lovers.' }, tags: ['모험가', '자연 탐험', '축구 팬', '탱고', '트레킹'] },
+    links: [{ name: 'Argentina Travel', url: 'https://www.argentina.travel', desc: '아르헨티나 관광청', icon: '💃' }, { name: 'Booking.com', url: 'https://www.booking.com', desc: '숙소 예약', icon: '🏨' }, { name: 'Viator', url: 'https://www.viator.com', desc: '투어 예약', icon: '🏔️' }]
+  },
+  {
+    id: 'kenya', flag: '🇰🇪', continent: '아프리카',
+    name: { ko: '케냐', en: 'Kenya', ja: 'ケニア', zh: '肯尼亚' },
+    tagline: { ko: '야생의 심장', en: 'Heart of the Wild', ja: '野生の心臓', zh: '野性的心脏' },
+    desc: { ko: '마사이마라, 킬리만자로, 빅파이브, 사바나의 나라', en: 'Masai Mara, Kilimanjaro, Big Five, and endless savannahs', ja: 'マサイマラ、キリマンジャロ、ビッグファイブ、広大なサバンナ', zh: '马赛马拉、乞力马扎罗山、五大动物与无尽草原' },
+    img: 'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=800&q=80',
+    photos: [
+      'https://images.unsplash.com/photo-1516426122078-c23e76319801?w=400&q=80',
+      'https://images.unsplash.com/photo-1547471080-7cc2caa01a7e?w=400&q=80',
+      'https://images.unsplash.com/photo-1551969014-7d2c4cddf0b6?w=400&q=80',
+      'https://images.unsplash.com/photo-1535083783855-aaab18a2b5e1?w=400&q=80'
+    ],
+    tags: ['사파리', '빅파이브', '마사이', '야생'],
+    mapPos: { x: 56, y: 50 },
+    overview: { ko: { capital: '나이로비', currency: '케냐실링 (KES)', climate: '열대 고원', bestTime: '6월~9월(건기·대이동)', language: '스와힐리어·영어', timezone: 'GMT+3' }, en: { capital: 'Nairobi', currency: 'KES', climate: 'Tropical highland', bestTime: 'Jun-Sep (dry season, wildebeest migration)', language: 'Swahili/English', timezone: 'GMT+3' } },
+    attractions: ['마사이마라 — 세계 최대 동물 대이동', '암보셀리 — 킬리만자로 배경 코끼리 무리', '나이바샤 호수 — 홍학과 하마', '마사이 문화 탐방', '나이로비 국립공원 — 도심 속 사파리', '인도양 몸바사 — 케냐 최고의 해변'],
+    transport: { fromKorea: '인천→나이로비 약 13시간', flight: '경유 이용', accommodation: '사파리 텐트 캠프~럭셔리 롯지', localTransport: '사파리 차량, 국내선' },
+    recommend: { desc: { ko: '야생동물 마니아, 사진 작가, 자연 탐험가, 버킷리스트 여행자에게 평생 잊지 못할 여행입니다.', en: 'An unforgettable journey for wildlife fans, photographers, nature explorers, and bucket-listers.' }, tags: ['야생동물', '사파리', '사진 작가', '자연 탐험', '버킷리스트'] },
+    links: [{ name: 'Kenya Tourism', url: 'https://www.magicalkenya.com', desc: '케냐 공식 관광청', icon: '🦁' }, { name: 'Booking.com', url: 'https://www.booking.com', desc: '숙소 예약', icon: '🏕️' }, { name: 'Viator', url: 'https://www.viator.com', desc: '사파리 투어', icon: '🐘' }]
+  },
+  {
+    id: 'czech', flag: '🇨🇿', continent: '유럽',
+    name: { ko: '체코', en: 'Czech Republic', ja: 'チェコ', zh: '捷克' },
+    tagline: { ko: '동화 속 중세 도시', en: 'Fairytale Medieval City', ja: '童話の中世都市', zh: '童话般的中世纪城市' },
+    desc: { ko: '프라하 구시가지, 카를교, 맥주, 동화 같은 성들', en: 'Prague old town, Charles Bridge, beer, and fairy-tale castles', ja: 'プラハ旧市街、カレル橋、ビール、おとぎ話の城', zh: '布拉格老城区、查理大桥、啤酒与童话城堡' },
+    img: 'https://images.unsplash.com/photo-1541849546-216549ae216d?w=800&q=80',
+    photos: [
+      'https://images.unsplash.com/photo-1541849546-216549ae216d?w=400&q=80',
+      'https://images.unsplash.com/photo-1560930950-5cc20e80e392?w=400&q=80',
+      'https://images.unsplash.com/photo-1592906209472-a36b1f3782ef?w=400&q=80',
+      'https://images.unsplash.com/photo-1519677584237-752f8853252e?w=400&q=80'
+    ],
+    tags: ['프라하', '맥주', '성', '중세'],
+    mapPos: { x: 49, y: 26 },
+    overview: { ko: { capital: '프라하', currency: '코루나 (CZK)', climate: '온화 대륙성', bestTime: '봄(4-6월), 가을(9-10월)', language: '체코어', timezone: 'GMT+1' }, en: { capital: 'Prague', currency: 'CZK', climate: 'Mild continental', bestTime: 'Spring (Apr-Jun), Fall (Sep-Oct)', language: 'Czech', timezone: 'GMT+1' } },
+    attractions: ['프라하 성 — 세계 최대 고성 단지', '카를교 — 30개 성인 조각 다리', '구시가지 광장 — 천문시계탑', '세스키크루믈로프 — 유네스코 동화 마을', '쿠트나호라 — 해골 교회', '플젠 — 필스너 맥주의 고향'],
+    transport: { fromKorea: '인천→프라하 약 13시간', flight: '경유 이용', accommodation: '호스텔~부티크 호텔', localTransport: '트램, 지하철, 버스' },
+    recommend: { desc: { ko: '유럽 저예산 여행자, 역사 탐방, 건축 마니아, 맥주 러버에게 최고의 숨은 보석입니다.', en: 'A hidden gem for budget European travelers, history lovers, architecture fans, and beer lovers.' }, tags: ['저예산 유럽', '역사 탐방', '건축', '맥주', '사진 여행'] },
+    links: [{ name: 'Czech Tourism', url: 'https://www.czechtourism.com', desc: '체코 공식 관광청', icon: '🏰' }, { name: 'Booking.com', url: 'https://www.booking.com', desc: '숙소 예약', icon: '🏨' }, { name: 'GetYourGuide', url: 'https://www.getyourguide.com', desc: '투어 예약', icon: '🎻' }]
+  }
+];
+
+// ══════════════════════════════════════
+// STATE
+// ══════════════════════════════════════
+let currentView = 'map';
+let activeContinent = 'all';
+let currentCountry = null;
+let activeTab = 'overview';
+
+// ══════════════════════════════════════
+// PARTICLES
+// ══════════════════════════════════════
+function initParticles() {
+  const container = document.getElementById('particles');
+  for (let i = 0; i < 20; i++) {
+    const p = document.createElement('div');
+    p.className = 'particle';
+    p.style.left = Math.random() * 100 + '%';
+    p.style.animationDuration = (8 + Math.random() * 12) + 's';
+    p.style.animationDelay = (Math.random() * 8) + 's';
+    p.style.width = p.style.height = (2 + Math.random() * 4) + 'px';
+    container.appendChild(p);
+  }
+}
+
+// ══════════════════════════════════════
+// RENDER
+// ══════════════════════════════════════
+function getFiltered() {
+  const search = document.getElementById('searchInput').value.toLowerCase();
+  return countries.filter(c => {
+    const name = c.name[currentLang] || c.name.ko;
+    const matchSearch = !search || name.toLowerCase().includes(search) ||
+      c.id.includes(search) || (c.tags && c.tags.join(' ').toLowerCase().includes(search));
+    const matchContinent = activeContinent === 'all' || c.continent === activeContinent;
+    return matchSearch && matchContinent;
+  });
+}
+
+function renderAll() {
+  renderMap();
+  renderList();
+  renderFlags();
+  renderFeatured();
+}
+
+function renderMap() {
+  const container = document.getElementById('countryDots');
+  container.innerHTML = '';
+  const filtered = getFiltered();
+  filtered.forEach(c => {
+    const dot = document.createElement('div');
+    dot.className = 'country-dot';
+    dot.style.left = c.mapPos.x + '%';
+    dot.style.top = c.mapPos.y + '%';
+    dot.title = c.name[currentLang] || c.name.ko;
+    dot.onclick = () => openModal(c.id);
+
+    const label = document.createElement('div');
+    label.className = 'country-dot-label';
+    label.textContent = c.flag + ' ' + (c.name[currentLang] || c.name.ko);
+    dot.appendChild(label);
+    container.appendChild(dot);
+  });
+}
+
+function renderList() {
+  const grid = document.getElementById('countryGrid');
+  const filtered = getFiltered();
+  grid.innerHTML = filtered.map(c => `
+    <div class="country-card" onclick="openModal('${c.id}')">
+      <div class="card-img-wrap">
+        <img class="card-img" src="${c.img}" alt="${c.name[currentLang]||c.name.ko}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1488085061387-422e29b40080?w=800&q=80'">
+        <div class="card-badge">${c.continent}</div>
+      </div>
+      <div class="card-body">
+        <div class="card-header">
+          <span class="card-flag">${c.flag}</span>
+          <div>
+            <div class="card-name">${c.name[currentLang]||c.name.ko}</div>
+            <div class="card-continent">${c.tagline[currentLang]||c.tagline.ko}</div>
+          </div>
+        </div>
+        <p class="card-desc">${c.desc[currentLang]||c.desc.ko}</p>
+        <div class="card-tags">${c.tags.map(t=>`<span class="tag">${t}</span>`).join('')}</div>
+      </div>
+      <div class="card-arrow">→</div>
+    </div>
+  `).join('');
+}
+
+function renderFlags() {
+  const grid = document.getElementById('flagGrid');
+  const filtered = getFiltered();
+  grid.innerHTML = filtered.map(c => `
+    <div class="flag-card" onclick="openModal('${c.id}')">
+      <span class="flag-emoji">${c.flag}</span>
+      <div class="flag-name">${c.name[currentLang]||c.name.ko}</div>
+      <div class="flag-cont">${c.continent}</div>
+    </div>
+  `).join('');
+}
+
+function renderFeatured() {
+  const featured = [countries[1], countries[2], countries[9], countries[6], countries[5], countries[11], countries[18], countries[28]];
+  const scroll = document.getElementById('featuredScroll');
+  scroll.innerHTML = featured.map(c => `
+    <div class="featured-card" onclick="openModal('${c.id}')">
+      <img src="${c.img}" alt="${c.name[currentLang]||c.name.ko}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1488085061387-422e29b40080?w=800&q=80'">
+      <div class="featured-card-overlay"></div>
+      <div class="featured-card-info">
+        <div class="featured-flag">${c.flag}</div>
+        <div class="featured-name">${c.name[currentLang]||c.name.ko}</div>
+        <div class="featured-tagline">${c.tagline[currentLang]||c.tagline.ko}</div>
+      </div>
+    </div>
+  `).join('');
+}
+
+// ══════════════════════════════════════
+// VIEW SWITCHING
+// ══════════════════════════════════════
+function showView(view) {
+  currentView = view;
+  document.getElementById('view-map').style.display = view === 'map' ? 'block' : 'none';
+  document.getElementById('view-list').style.display = view === 'list' ? 'block' : 'none';
+  document.getElementById('view-flag').style.display = view === 'flag' ? 'block' : 'none';
+
+  document.querySelectorAll('.view-tab').forEach(t => t.classList.remove('active'));
+  document.getElementById('tab-' + view).classList.add('active');
+}
+
+function filterContinent(cont) {
+  activeContinent = cont;
+  document.querySelectorAll('.cont-btn').forEach(b => b.classList.remove('active'));
+  event.target.classList.add('active');
+  renderAll();
+}
+
+function filterCountries(val) {
+  renderAll();
+}
+
+// ══════════════════════════════════════
+// MODAL
+// ══════════════════════════════════════
+function openModal(id) {
+  currentCountry = countries.find(c => c.id === id);
+  if (!currentCountry) return;
+  const c = currentCountry;
+  const lang = currentLang;
+
+  document.getElementById('modalHeroImg').src = c.img;
+  document.getElementById('modalFlag').textContent = c.flag;
+  document.getElementById('modalName').textContent = c.name[lang] || c.name.ko;
+  document.getElementById('modalContinent').textContent = c.continent + ' · ' + (c.tagline[lang] || c.tagline.ko);
+
+  // Photos
+  document.getElementById('photoGallery').innerHTML = c.photos.map((p, i) =>
+    `<img class="gallery-img" src="${p}" alt="photo${i}" loading="lazy" onerror="this.src='https://images.unsplash.com/photo-1488085061387-422e29b40080?w=400&q=80'">`
+  ).join('');
+
+  // Overview
+  const ov = c.overview[lang] || c.overview.ko || c.overview.en;
+  const ovLabels = {
+    ko: { capital:'수도', currency:'화폐', climate:'기후', bestTime:'최적 시기', language:'언어', timezone:'시간대' },
+    en: { capital:'Capital', currency:'Currency', climate:'Climate', bestTime:'Best Time', language:'Language', timezone:'Timezone' },
+    ja: { capital:'首都', currency:'通貨', climate:'気候', bestTime:'ベストシーズン', language:'言語', timezone:'タイムゾーン' },
+    zh: { capital:'首都', currency:'货币', climate:'气候', bestTime:'最佳时节', language:'语言', timezone:'时区' }
+  };
+  const lbl = ovLabels[lang] || ovLabels.ko;
+  const ovIcons = { capital:'🏛️', currency:'💰', climate:'🌤️', bestTime:'📅', language:'🗣️', timezone:'⏰' };
+  if (ov) {
+    document.getElementById('overviewGrid').innerHTML = Object.entries(ov).map(([k, v]) =>
+      `<div class="info-block">
+        <div class="info-block-icon">${ovIcons[k]||'ℹ️'}</div>
+        <div class="info-block-title">${lbl[k]||k}</div>
+        <div class="info-block-value">${v}</div>
+      </div>`
+    ).join('');
+  }
+
+  // Attractions
+  document.getElementById('attractionsList').innerHTML = c.attractions.map(a =>
+    `<li><span class="hl-icon">✦</span><span>${a}</span></li>`
+  ).join('');
+
+  // Travel
+  const tr = c.transport;
+  const trLabels = {
+    ko: { fromKorea:'한국에서 가는 법', flight:'항공', accommodation:'숙박', localTransport:'현지 교통' },
+    en: { fromKorea:'Getting There', flight:'Flight', accommodation:'Accommodation', localTransport:'Local Transport' },
+    ja: { fromKorea:'韓国からの行き方', flight:'航空', accommodation:'宿泊', localTransport:'現地交通' },
+    zh: { fromKorea:'从韩国出发', flight:'航班', accommodation:'住宿', localTransport:'当地交通' }
+  };
+  const trlbl = trLabels[lang] || trLabels.ko;
+  const trIcons = { fromKorea:'✈️', flight:'🛫', accommodation:'🏨', localTransport:'🚌' };
+  document.getElementById('travelGrid').innerHTML = Object.entries(tr).map(([k, v]) =>
+    `<div class="info-block">
+      <div class="info-block-icon">${trIcons[k]||'🚗'}</div>
+      <div class="info-block-title">${trlbl[k]||k}</div>
+      <div class="info-block-value">${v}</div>
+    </div>`
+  ).join('');
+
+  // Recommend
+  document.getElementById('recommendDesc').textContent = c.recommend.desc[lang] || c.recommend.desc.ko || c.recommend.desc.en;
+  document.getElementById('recommendTags').innerHTML = c.recommend.tags.map(t =>
+    `<span class="rtag">${t}</span>`
+  ).join('');
+
+  // Links
+  document.getElementById('extLinks').innerHTML = c.links.map(l =>
+    `<a class="ext-link" href="${l.url}" target="_blank" rel="noopener">
+      <div class="ext-link-info">
+        <span class="ext-link-icon">${l.icon}</span>
+        <div>
+          <div class="ext-link-name">${l.name}</div>
+          <div class="ext-link-desc">${l.desc}</div>
+        </div>
+      </div>
+      <span class="ext-link-arrow">↗</span>
+    </a>`
+  ).join('');
+
+  // AI
+  document.getElementById('aiContent').textContent = i18n[lang].ai_placeholder || '버튼을 눌러 AI 가이드를 불러오세요';
+  document.getElementById('aiBtn').disabled = false;
+  document.getElementById('aiBtn').textContent = i18n[lang].ai_btn || '✦ AI 가이드 생성';
+
+  // Reset tabs
+  switchTab('overview');
+
+  const overlay = document.getElementById('modalOverlay');
+  overlay.style.display = 'flex';
+  setTimeout(() => overlay.classList.add('visible'), 10);
+  document.body.style.overflow = 'hidden';
+}
+
+function closeModal() {
+  const overlay = document.getElementById('modalOverlay');
+  overlay.classList.remove('visible');
+  setTimeout(() => { overlay.style.display = 'none'; }, 300);
+  document.body.style.overflow = '';
+}
+
+function closeModalOutside(e) {
+  if (e.target === document.getElementById('modalOverlay')) closeModal();
+}
+
+function switchTab(tab) {
+  activeTab = tab;
+  document.querySelectorAll('.info-tab').forEach(t => t.classList.remove('active'));
+  document.querySelectorAll('.info-panel').forEach(p => p.classList.remove('active'));
+
+  const tabEls = document.querySelectorAll('.info-tab');
+  const tabMap = ['overview','attractions','travel','recommend','links'];
+  const idx = tabMap.indexOf(tab);
+  if (idx >= 0 && tabEls[idx]) tabEls[idx].classList.add('active');
+  const panel = document.getElementById('panel-' + tab);
+  if (panel) panel.classList.add('active');
+}
+
+// ══════════════════════════════════════
+// AI GUIDE
+// ══════════════════════════════════════
+async function generateAIGuide() {
+  if (!currentCountry) return;
+  const btn = document.getElementById('aiBtn');
+  const content = document.getElementById('aiContent');
+  btn.disabled = true;
+
+  const loadingHtml = `<div class="ai-loading">
+    <div class="ai-dot"></div><div class="ai-dot"></div><div class="ai-dot"></div>
+    <span style="margin-left:8px;font-size:0.82rem">AI가 분석 중...</span>
+  </div>`;
+  content.innerHTML = loadingHtml;
+
+  const lang = currentLang;
+  const countryName = currentCountry.name[lang] || currentCountry.name.ko;
+
+  const prompts = {
+    ko: `당신은 여행 전문가입니다. ${countryName} 여행에 대해 한국어로 간결하고 실용적인 팁을 3-4가지 핵심 포인트로 알려주세요. 현지 문화 주의사항, 필수 준비물, 꼭 먹어야 할 음식, 알아두면 좋은 팁 등을 포함하세요. 200자 이내로 간결하게.`,
+    en: `You are a travel expert. Give 3-4 practical travel tips for visiting ${countryName} in English. Include local culture notes, must-try foods, and essential preparation tips. Keep it under 200 words, concise and useful.`,
+    ja: `あなたは旅行の専門家です。${countryName}旅行について日本語で3-4つの実用的なアドバイスをください。現地文化の注意点、必食グルメ、準備のヒントを含めてください。200文字以内で簡潔に。`,
+    zh: `你是旅行专家。请用中文提供3-4条关于${countryName}旅游的实用建议，包括当地文化注意事项、必尝美食和出行准备。请用200字以内简洁说明。`
+  };
+
+  try {
+    const response = await fetch("https://api.anthropic.com/v1/messages", {
+      method: "POST",
+      headers: { "Content-Type": "application/json" },
+      body: JSON.stringify({
+        model: "claude-sonnet-4-20250514",
+        max_tokens: 1000,
+        messages: [{ role: "user", content: prompts[lang] || prompts.ko }]
+      })
+    });
+    const data = await response.json();
+    const text = data.content && data.content[0] && data.content[0].text;
+    if (text) {
+      content.textContent = text;
+    } else {
+      content.textContent = '정보를 불러오지 못했습니다. 다시 시도해주세요.';
+      btn.disabled = false;
+    }
+  } catch (e) {
+    content.textContent = '네트워크 오류가 발생했습니다. 다시 시도해주세요.';
+    btn.disabled = false;
+  }
+  btn.textContent = '↻ 다시 생성';
+  btn.disabled = false;
+}
+
+// ══════════════════════════════════════
+// UTILS
+// ══════════════════════════════════════
+function scrollToExplore() {
+  document.getElementById('exploreSection').scrollIntoView({ behavior: 'smooth' });
+}
+function scrollToTop() {
+  window.scrollTo({ top: 0, behavior: 'smooth' });
+}
+function showToast(msg) {
+  const t = document.getElementById('toast');
+  t.textContent = msg; t.classList.add('show');
+  setTimeout(() => t.classList.remove('show'), 2500);
+}
+
+document.addEventListener('keydown', e => { if (e.key === 'Escape') closeModal(); });
+
+// ══════════════════════════════════════
+// INIT
+// ══════════════════════════════════════
+initParticles();
+renderAll();
+</script>
+</body>
+</html>
